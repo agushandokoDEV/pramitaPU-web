@@ -38,7 +38,7 @@
         <div class="login-aside d-flex align-items-center justify-content-center bg-white">
             <div class="container container-login container-transparent animated fadeIn">
                 <h3 class="text-center">Sign In To Admin</h3>
-                <form class="login-form" method="post" action="{{ route('authenticate') }}">
+                <form class="login-form" method="post" action="/authenticate">
                     @csrf
                     <div class="form-group">
                         <label for="username" class="placeholder"><b>Username</b></label>
