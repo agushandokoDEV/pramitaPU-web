@@ -9,6 +9,7 @@ class PersonalAccessTokens extends Model
 {
     use HasFactory;
 
-    // protected $table = 'personal_access_tokens';
-    // protected $keyType = 'string';
+    protected $table = 'personal_access_tokens';
+    protected $keyType = 'string';
+    
 }
