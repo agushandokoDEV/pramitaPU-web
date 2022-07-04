@@ -15,7 +15,7 @@ class KegiatanController extends Controller
         $from=$request->input('tgl-dari')?$request->input('tgl-dari'):date('Y-m-d');
         $to=$request->input('tgl-sampai')?$request->input('tgl-sampai'):date('Y-m-d');
         
-        $data=Kegiatan::with(['ambilbahan','lab'])
+        $data=Kegiatan::with(['ambilbahan','antarbahan','lab'])
             ->whereDate('created_at',$from)
             ->where('user_id',Auth::user()->id)
             ->orderBy('created_at', 'DESC')
@@ -34,14 +34,14 @@ class KegiatanController extends Controller
         $from=$request->input('tgl-dari');
         $to=$request->input('tgl-sampai');
         if($from || $to){
-            $data=Kegiatan::with(['ambilbahan','lab'])
+            $data=Kegiatan::with(['ambilbahan','antarbahan','lab'])
                 ->whereDate('created_at',$from)
                 ->whereDate('created_at',$to)
                 ->where('user_id',Auth::user()->id)
                 ->orderBy('created_at', 'DESC')
                 ->get();
         }else{
-            $data=Kegiatan::with(['ambilbahan','lab'])
+            $data=Kegiatan::with(['ambilbahan','antarbahan','lab'])
                 ->where('user_id',Auth::user()->id)
                 ->orderBy('created_at', 'DESC')
                 ->get();

@@ -11,7 +11,12 @@ class Kegiatan extends Model
 
     protected $table='kegiatan';
     protected $keyType = 'string';
-    protected $fillable = ['user_id','ambil_bahan_id','jenis','lab_id'];
+    protected $fillable = ['user_id','ambil_bahan_id','jenis','lab_id','antar_bahan_id'];
+
+    public function antarbahan()
+    {
+        return $this->belongsTo(AntarBahan::class, 'antar_bahan_id');
+    }
 
     public function ambilbahan()
     {

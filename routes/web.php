@@ -9,6 +9,7 @@ use App\Http\Controllers\RolesController;
 use App\Http\Controllers\TabungController;
 use App\Http\Controllers\LabController;
 use App\Http\Controllers\AmbilbahanController;
+use App\Http\Controllers\AntarBahanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,4 +51,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/ambilbahan/tabung/{id}',[AmbilbahanController::class,'tabung'])->name('ambilbahan.tabung');
     Route::post('/ambilbahan/approved/{id}',[AmbilbahanController::class,'approved'])->name('ambilbahan.approved');
     Route::get('/ambilbahan/byid/{id}',[AmbilbahanController::class,'byid'])->name('ambilbahan.byid');
+
+    Route::get('/antarbahan',[AntarBahanController::class,'index'])->name('antarbahan.index');
+    Route::get('/antarbahan/all',[AntarBahanController::class,'all'])->name('antarbahan.all');
 });

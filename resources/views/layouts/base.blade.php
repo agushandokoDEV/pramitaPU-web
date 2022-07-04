@@ -415,7 +415,7 @@
                             </a>
                         </li>
                         <li class="nav-item active">
-                            <a href="{{route('ambilbahan.index') }}">
+                            <a href="{{route('antarbahan.index') }}">
                                 <i class="fas fa-motorcycle"></i>
                                 <p>Antar Bahan</p>
                                 {{-- <span class="badge badge-success">4</span> --}}

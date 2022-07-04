@@ -16,7 +16,6 @@ class AmbilbahanController extends Controller
 
     public function all(Request $request)
     {
-        // return datatables()->query(DB::table('users'))->toJson();
         $from=$request->input('tgl-dari')?$request->input('tgl-dari'):date('Y-m-d');
         $to=$request->input('tgl-sampai')?$request->input('tgl-sampai'):date('Y-m-d');
 
