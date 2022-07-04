@@ -8,6 +8,7 @@ use App\Models\Lab;
 use App\Models\Tabung;
 use App\Models\AmbilBahan;
 use App\Models\TabungAmbilBahan;
+use App\Models\Kegiatan;
 use Illuminate\Support\Facades\Auth;
 
 class AmbilBahanController extends Controller
@@ -36,7 +37,6 @@ class AmbilBahanController extends Controller
 
     public function setAmbilbahan(Request $request)
     {
-        $bodyContent = $request->getContent();
 
         $ambilbahan=AmbilBahan::create([
             'user_id'=>Auth::user()->id,
@@ -44,6 +44,13 @@ class AmbilBahanController extends Controller
             'nama_pasien'=>$request->nama_pasien,
             'yg_menyerahkan'=>$request->yg_menyerahkan,
             'created_at'=>date('Y-m-d H:i:d')
+        ]);
+
+        Kegiatan::create([
+            'user_id'=>Auth::user()->id,
+            'ambil_bahan_id'=>$ambilbahan->id,
+            'lab_id'=>$request->lab_id,
+            'jenis'=>'ambil_bahan'
         ]);
 
         $listtabung=[];
@@ -67,7 +74,31 @@ class AmbilBahanController extends Controller
         return response()->json([
             'success'=>true,
             'data'=>$data,
-            'message'=>'list tabung'
+            'message'=>'ambil bahan / kunjungan berhasi ditambahkan'
+        ],200);
+    }
+
+    public function setAntarbahan(Request $request)
+    {
+
+        $antarbahan=AmbilBahan::create([
+            'user_id'=>Auth::user()->id,
+            'lab_id'=>$request->lab_id,
+            'yg_menerima'=>$request->yg_menerima,
+            'created_at'=>date('Y-m-d H:i:d')
+        ]);
+
+        Kegiatan::create([
+            'user_id'=>Auth::user()->id,
+            'ambil_bahan_id'=>$antarbahan->id,
+            'lab_id'=>$request->lab_id,
+            'jenis'=>'antar_bahan'
+        ]);
+        
+        return response()->json([
+            'success'=>true,
+            'data'=>$antarbahan,
+            'message'=>'antar bahan / rujukan berhasi ditambahkan'
         ],200);
     }
 }

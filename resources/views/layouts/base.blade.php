@@ -301,7 +301,7 @@
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="#">Account Setting</a>
                                         <div class="dropdown-divider"></div> --}}
-                                        <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
+                                        <a class="dropdown-item" href="{{ route('logout') }}">Keluar</a>
                                         {{-- <form methods="POST" actions="{{ route('logout') }}">
                                             @csrf
                                             <button type="submit" class="dropdown-item">Logout</button>
@@ -409,7 +409,7 @@
                         </li>
                         <li class="nav-item active">
                             <a href="{{route('ambilbahan.index') }}">
-                                <i class="fas fa-hand-holding"></i>
+                                <i class="fas fa-exchange-alt"></i>
                                 <p>Ambil Bahan</p>
                                 {{-- <span class="badge badge-success">4</span> --}}
                             </a>
