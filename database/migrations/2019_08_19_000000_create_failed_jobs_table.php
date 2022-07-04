@@ -16,7 +16,8 @@ return new class extends Migration
         if(!Schema::hasTable('users'))
         {
             Schema::create('failed_jobs', function (Blueprint $table) {
-                $table->id();
+                // $table->id();
+                $table->uuid('id')->default(DB::raw('(gen_random_uuid())'));
                 $table->string('uuid')->unique();
                 $table->text('connection');
                 $table->text('queue');

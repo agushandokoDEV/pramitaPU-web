@@ -16,7 +16,8 @@ return new class extends Migration
         if(!Schema::hasTable('users'))
         {
             Schema::create('personal_access_tokens', function (Blueprint $table) {
-                $table->id();
+                // $table->id();
+                $table->uuid('id')->default(DB::raw('(gen_random_uuid())'));
                 $table->morphs('tokenable');
                 $table->string('name');
                 $table->string('token', 64)->unique();
