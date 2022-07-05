@@ -35,14 +35,16 @@
             {{-- <img src="/assets/img/logo.png" style="width:50%" /> --}}
             {{-- <p class="subtitle text-white op-7">Ayo bergabung dengan komunitas kami untuk masa depan yang lebih baik</p> --}}
         </div>
-        <div class="login-aside d-flex align-items-center justify-content-center bg-white">
-            <div class="container container-login container-transparent animated fadeIn">
-                <h3 class="text-center">Sign In To Admin</h3>
+        <div class="login-aside d-flex align-items-center justify-content-center bg-white" style="padding:0;">
+            <div class="container container-login container-transparent animated fadeIn" style="padding-top: 20px;border: 1px solid red;">
+                <img src="/assets/img/pramita-banner.png" style="width: 100%;margin-bottom: 30px;"/>
+                <h3 class="text-center" style="margin-bottom: 10px;">Masuk Admin</h3>
+                <hr style="margin-top: 0;"/>
                 <form class="login-form" method="post" action="/authenticate">
                     @csrf
                     <div class="form-group">
-                        <label for="username" class="placeholder"><b>Username</b></label>
-                        <input value="{{ old('username') }}" id="username" name="username" type="text" class="form-control">
+                        {{-- <label for="username" class="placeholder"><b>Username</b></label> --}}
+                        <input placeholder="Username" value="{{ old('username') }}" id="username" name="username" type="text" class="form-control">
 
                         @error('username')
                         <div class="text-danger">{{$message}}</div>
@@ -50,10 +52,10 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="password" class="placeholder"><b>Password</b></label>
+                        {{-- <label for="password" class="placeholder"><b>Password</b></label> --}}
                         {{-- <a href="#" class="link float-right">Forget Password ?</a> --}}
                         <div class="position-relative">
-                            <input value="{{ old('password') }}" id="password" name="password" type="password" class="form-control">
+                            <input placeholder="Password" value="{{ old('password') }}" id="password" name="password" type="password" class="form-control">
                             <div class="show-password">
                                 <i class="icon-eye"></i>
                             </div>
@@ -72,6 +74,10 @@
                             Masuk
                         </button>
                     </div>
+                    {{-- <hr style="margin-top: 50px;"/>
+                    <address class="text-center">
+                        <strong>Pramita Lab</strong>
+                    </address> --}}
                     {{-- <div class="login-account">
                         <span class="msg">Don't have an account yet ?</span>
                         <a href="#" id="show-signup" class="link">Sign Up</a>

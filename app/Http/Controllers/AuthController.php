@@ -47,6 +47,7 @@ class AuthController extends Controller
             return redirect('/home');
         }
 
+        return redirect('/');
         // dd(Auth::username());
     }
 
