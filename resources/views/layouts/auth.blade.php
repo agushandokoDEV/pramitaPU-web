@@ -36,26 +36,31 @@
             {{-- <p class="subtitle text-white op-7">Ayo bergabung dengan komunitas kami untuk masa depan yang lebih baik</p> --}}
         </div>
         <div class="login-aside d-flex align-items-center justify-content-center bg-white" style="padding:0;">
-            <div class="container container-login container-transparent animated fadeIn" style="padding-top: 20px;border: 1px solid red;">
+            <div class="container container-login container-transparent animated fadeIn" style="padding-top: 0px;">
                 <img src="/assets/img/pramita-banner.png" style="width: 100%;margin-bottom: 30px;"/>
                 <h3 class="text-center" style="margin-bottom: 10px;">Masuk Admin</h3>
-                <hr style="margin-top: 0;"/>
+                {{-- <hr style="margin-top: 0;"/> --}}
                 <form class="login-form" method="post" action="/authenticate">
                     @csrf
-                    <div class="form-group">
-                        {{-- <label for="username" class="placeholder"><b>Username</b></label> --}}
-                        <input placeholder="Username" value="{{ old('username') }}" id="username" name="username" type="text" class="form-control">
-
+                    <div>
+                        <div class="input-group mt-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text" id="txt-username"><i class="fa fa-user"></i></span>
+                          </div>
+                          <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="txt-username" value="{{ old('username') }}"/>
+                            
+                        </div>
                         @error('username')
-                        <div class="text-danger">{{$message}}</div>
+                            <div class="text-danger">{{$message}}</div>
                         @enderror
                     </div>
-
-                    <div class="form-group">
-                        {{-- <label for="password" class="placeholder"><b>Password</b></label> --}}
-                        {{-- <a href="#" class="link float-right">Forget Password ?</a> --}}
-                        <div class="position-relative">
-                            <input placeholder="Password" value="{{ old('password') }}" id="password" name="password" type="password" class="form-control">
+                    
+                    <div>
+                        <div class="input-group mt-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text" id="txt-password"><i class="fa fa-lock"></i></span>
+                          </div>
+                          <input type="password" value="{{ old('password') }}" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="txt-password"/>
                             <div class="show-password">
                                 <i class="icon-eye"></i>
                             </div>
@@ -63,9 +68,10 @@
                         @error('password')
                         <div class="text-danger">{{$message}}</div>
                         @enderror
-                        
                     </div>
-                    <div class="form-group form-action-d-flex mb-3">
+
+                    
+                    <div class="form-action-d-flex mt-3">
                         {{-- <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" id="rememberme">
                             <label class="custom-control-label m-0" for="rememberme">Remember Me</label>
@@ -85,7 +91,7 @@
                 </form>
             </div>
 
-            <div class="container container-signup container-transparent animated fadeIn">
+            {{-- <div class="container container-signup container-transparent animated fadeIn">
                 <h3 class="text-center">Sign Up</h3>
                 <div class="login-form">
                     <div class="form-group">
@@ -129,7 +135,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
     <script src="/assets/js/core/jquery.3.2.1.min.js"></script>
