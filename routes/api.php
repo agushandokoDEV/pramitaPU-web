@@ -8,6 +8,8 @@ use App\Http\Controllers\API\TabungController;
 use App\Http\Controllers\API\AmbilBahanController;
 use App\Http\Controllers\API\KegiatanController;
 use App\Http\Controllers\API\AntarBahanController;
+use App\Http\Controllers\API\InstansiController;
+use App\Http\Controllers\API\PengantaranDokterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +35,8 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
     Route::get('/tabung',[TabungController::class,'list'])->name('tabung.list');
     Route::post('/ambil-bahan',[AmbilBahanController::class,'Add'])->name('ambilbahan.add');
     Route::post('/antar-bahan',[AntarBahanController::class,'Add'])->name('antarbahan.add');
+    Route::post('/instansi',[InstansiController::class,'Add'])->name('instansi.add');
+    Route::post('/pengantarandokter',[PengantaranDokterController::class,'Add'])->name('pengantarandokter.add');
     Route::get('/kegiatan',[KegiatanController::class,'bydate'])->name('kegiatan.bydate');
     Route::get('/riwayat-kegiatan',[KegiatanController::class,'riwayat'])->name('kegiatan.riwayat');
     Route::get('/kegiatan/{id}',[KegiatanController::class,'byid'])->name('kegiatan.byid');

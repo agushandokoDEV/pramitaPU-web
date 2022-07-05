@@ -10,6 +10,7 @@ use App\Http\Controllers\TabungController;
 use App\Http\Controllers\LabController;
 use App\Http\Controllers\AmbilbahanController;
 use App\Http\Controllers\AntarBahanController;
+use App\Http\Controllers\InstansiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,4 +55,7 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::get('/antarbahan',[AntarBahanController::class,'index'])->name('antarbahan.index');
     Route::get('/antarbahan/all',[AntarBahanController::class,'all'])->name('antarbahan.all');
+
+    Route::get('/instansi',[InstansiController::class,'index'])->name('instansi.index');
+    Route::get('/instansi/all',[InstansiController::class,'all'])->name('instansi.all');
 });

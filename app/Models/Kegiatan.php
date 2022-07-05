@@ -11,7 +11,7 @@ class Kegiatan extends Model
 
     protected $table='kegiatan';
     protected $keyType = 'string';
-    protected $fillable = ['user_id','ambil_bahan_id','jenis','lab_id','antar_bahan_id'];
+    protected $fillable = ['user_id','ambil_bahan_id','jenis','lab_id','antar_bahan_id','instansi_id','pengantaran_dokter_id'];
 
     public function antarbahan()
     {
@@ -21,6 +21,16 @@ class Kegiatan extends Model
     public function ambilbahan()
     {
         return $this->belongsTo(AmbilBahan::class, 'ambil_bahan_id');
+    }
+
+    public function instansi()
+    {
+        return $this->belongsTo(Instansi::class, 'instansi_id');
+    }
+
+    public function pengantarandokter()
+    {
+        return $this->belongsTo(PengantaranDokter::class, 'pengantaran_dokter_id');
     }
 
     public function lab()

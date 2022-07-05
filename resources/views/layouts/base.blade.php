@@ -422,7 +422,7 @@
                             </a>
                         </li>
                         <li class="nav-item active">
-                            <a href="{{route('ambilbahan.index') }}">
+                            <a href="{{route('instansi.index') }}">
                                 <i class="fas fa-hospital"></i>
                                 <p>Instansi</p>
                                 {{-- <span class="badge badge-success">4</span> --}}
