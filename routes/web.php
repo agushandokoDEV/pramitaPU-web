@@ -11,6 +11,7 @@ use App\Http\Controllers\LabController;
 use App\Http\Controllers\AmbilbahanController;
 use App\Http\Controllers\AntarBahanController;
 use App\Http\Controllers\InstansiController;
+use App\Http\Controllers\PengantaranDokterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,4 +61,7 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::get('/instansi',[InstansiController::class,'index'])->name('instansi.index');
     Route::get('/instansi/all',[InstansiController::class,'all'])->name('instansi.all');
+
+    Route::get('/lain-lain',[PengantaranDokterController::class,'index'])->name('pengantarandokter.index');
+    Route::get('/lain-lain/all',[PengantaranDokterController::class,'all'])->name('pengantarandokter.all');
 });

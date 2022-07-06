@@ -428,6 +428,13 @@
                                 {{-- <span class="badge badge-success">4</span> --}}
                             </a>
                         </li>
+                        <li class="nav-item active">
+                            <a href="{{route('pengantarandokter.index') }}">
+                                <i class="fas fa-book-reader"></i>
+                                <p>Lain-lain</p>
+                                {{-- <span class="badge badge-success">4</span> --}}
+                            </a>
+                        </li>
                         {{-- <li class="nav-item">
                             <a href="../widgets.html">
                                 <i class="fas fa-desktop"></i>
