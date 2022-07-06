@@ -34,6 +34,7 @@
 						{{-- <th>Email</th> --}}
 						<th>Grup</th>
 						<th>Status</th>
+						<th style="width:5%">Aksi</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -54,16 +55,16 @@
         </button>
       </div>
       <div class="modal-body">
-        <form method="post" action="{{route('users.createUpdate')}}" id="form-users" autocomplete="off">
+        <form method="post" action="/users/add" id="form-users" autocomplete="off">
         	@csrf
-
+        	<input type="hidden" name="id" id="inp-id"/>
         	<div class="form-group">
 					  <label for="Inputnama">NIP :</label>
-				    <input type="text" name="username" class="form-control" id="Inputnama" placeholder="Masukan NIP" required/>
+				    <input type="text" name="username" class="form-control" id="inp-username" placeholder="Masukan NIP" required/>
 					</div>
 					<div class="form-group">
 					  <label for="Inputnama">Nama Lengkap :</label>
-				    <input type="text" name="namalengkap" class="form-control" id="Inputnama" placeholder="Masukan nama lengkap" required/>
+				    <input type="text" name="namalengkap" class="form-control" id="inp-namalengkap" placeholder="Masukan nama lengkap" required/>
 					</div>
         	{{-- <div class="form-group">
 				    <label for="InputEmail">Email :</label>
@@ -72,7 +73,7 @@
 			 
 				 <div class="form-group">
 				    <label for="InputEmail">Grup Pengguna :</label>
-				    <select class="form-control" name="role_id" required>
+				    <select class="form-control" name="role_id" id="inp-role" required>
 				    	<option value="">Pilih</option>
 				    	@foreach($roles as $role)
 				    	<option value="{{$role->id}}">{{$role->name}}</option>
@@ -138,7 +139,17 @@
 		            }
 		        }
 		    ],
-		    
+		    "columnDefs": [
+		    	{
+	            "targets": 5,
+	            "render": function(data, type, row, meta){
+
+	               	var str='';
+	               	str += ' <button onclick="get_detail('+"'"+row.id+"'"+')" title="Edit '+row.namalengkap+'" class="btn btn-sm btn-info"><i class="fa fa-pencil-alt" style="font-size:15px"></i></button>';
+	               	return str;
+	            }
+	        },
+		    ],
 		    "language": {
 	            "lengthMenu": "_MENU_",
 	            // "processing": "<img src='/img/loading.gif' />"
@@ -195,21 +206,32 @@
 	          .text('Loading...');
 	        },
 	        success: function(res) {
+	        	var btn_text='Tambahkan Pengguna Baru';
+	        	if($('#inp-id').val() !=''){
+	        		btn_text='Edit Pengguna'
+	        	}
 	        	$('#btn-submit')
 	        	.removeAttr('disabled')
-	        	.text('Tambahkan Pengguna Baru');
+	        	.text(btn_text);
 	        	
 	        	// var res=jQuery.parseJSON(response);
-	        	console.log(res)
+	        	// console.log(res)
 	          if(res.success){
 	            $('#msg-form').html('<div class="alert alert-success">'+res.message+'</div>')
-	            $('#form-users')[0].reset();
+	            if($('#inp-id').val() ===''){
+					  		$('#form-users')[0].reset();
+					  	}
+					  	table.ajax.url('/users/all').load();
 	          }
 	        },
 	        error:function(err,res){
+	        	var btn_text='Tambahkan Pengguna Baru';
+	        	if($('#inp-id').val() !=''){
+	        		btn_text='Edit Pengguna'
+	        	}
 	        	$('#btn-submit')
 	        	.removeAttr('disabled')
-	        	.text('Tambahkan Pengguna Baru');
+	        	.text(btn_text);
 	        	$('#msg-form').html('<div class="alert alert-danger">'+err.responseJSON.message+'</div>')
 	        }
 	    });
@@ -217,13 +239,34 @@
 
 	function addUser(str) {
 		$('#msg-form').html('')
+		$('#form-users').attr('action','/users/add')
+		$('#inp-id').val('')
+		$('#btn-submit').text('Tambahkan Pengguna');
 		$('#mdl-form-user').modal('show')
 		$('#modal-title').text(str)
+	}
+
+	function get_detail(id) {
+		$.get('/users/row/'+id,function(res){
+				if(res.success){
+					$('#inp-id').val(res.data.id);
+					$('#inp-username').val(res.data.username);
+					$('#inp-namalengkap').val(res.data.namalengkap);
+					$('#inp-role').val(res.data.role_id);
+					$('#form-users').attr('action','/users/edit')
+					$('#btn-submit').text('Edit Pengguna');
+					$('#mdl-form-user').modal('show')
+					$('#modal-title').text('Edit Pengguna')
+				}else{
+					alert(res.message)
+				}
+		});
 	}
 
 	function batal() {
 		$('#msg-form').html('')
 		$('#form-users')[0].reset();
+		
 		$('#mdl-form-user').modal('hide')
 	}
 </script>

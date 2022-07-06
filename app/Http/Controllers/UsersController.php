@@ -21,7 +21,25 @@ class UsersController extends Controller
         return datatables()->eloquent(User::with(['roles']))->toJson();
     }
 
-    public function createUpdate(Request $request)
+    public function byId(Request $request,$id)
+    {
+        $user=User::where('id',$id)->first();
+        if($user)
+        {
+            return response()->json([
+                'success'=>true,
+                'data'=>$user,
+                'message'=>'get user by ID '.$id
+            ],200);
+        }
+        return response()->json([
+            'success'=>false,
+            'data'=>null,
+            'message'=>'user ID '.$id.' tidak ditemukan'
+        ],200);
+    }
+
+    public function add(Request $request)
     {
         $user=User::where('username',$request->username)->first();
         $username=$request->username;
@@ -30,7 +48,7 @@ class UsersController extends Controller
             $payload=[
                 // 'username'=>Str::slug($request->namalengkap, '.'),
                 'username'=>$request->username,
-                'email'=>$request->email,
+                // 'email'=>$request->email,
                 'password'=>'admin',
                 'namalengkap'=>$request->namalengkap,
                 'role_id'=>$request->role_id,
@@ -50,6 +68,35 @@ class UsersController extends Controller
                 'message'=>'NIP '.$username.' sudah digunakan'
             ],400);
         }
-        
+    }
+
+    public function edit(Request $request)
+    {
+        $user=User::where('id',$request->id)->first();
+        $username=$request->username;
+
+        if($user){
+            $payload=[
+                // 'username'=>Str::slug($request->namalengkap, '.'),
+                // 'username'=>$request->username,
+                'namalengkap'=>$request->namalengkap,
+                'role_id'=>$request->role_id,
+                'password'=>$user->password,
+                'status'=>1
+            ];
+            $user=User::where('id',$request->id)->update($payload);
+            return response()->json([
+                'success'=>true,
+                'data'=>$user,
+                'message'=>'Pengguna '.$request->namalengkap.' berhasil diubah'
+            ],200);
+            
+        }else{
+            return response()->json([
+                'success'=>false,
+                'data'=>$user,
+                'message'=>'user ID '.$request->id.' tidak ditemukan'
+            ],400);
+        }
     }
 }

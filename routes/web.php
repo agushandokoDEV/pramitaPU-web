@@ -36,7 +36,9 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/home',[HomeController::class,'index'])->name('home.index');
     Route::get('/users',[UsersController::class,'index'])->name('users.index');
     Route::get('/users/all',[UsersController::class,'all'])->name('users.all');
-    Route::post('/users',[UsersController::class,'createUpdate'])->name('users.createUpdate');
+    Route::get('/users/row/{id}',[UsersController::class,'byId'])->name('users.byId');
+    Route::post('/users/add',[UsersController::class,'add'])->name('users.add');
+    Route::post('/users/edit',[UsersController::class,'edit'])->name('users.edit');
     
     Route::get('/roles',[RolesController::class,'index'])->name('roles.index');
     Route::get('/roles/all',[RolesController::class,'all'])->name('roles.all');
