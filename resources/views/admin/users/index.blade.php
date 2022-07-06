@@ -1,15 +1,12 @@
 @extends('layouts.base')
 @section('title', 'Kelola Pengguna')
 @section('assets')
-{{-- <link rel="stylesheet" type="text/css" href="/assets/js/plugin/datatables-1.12.1/src/css/jquery.dataTables.min.css"> --}}
-<link rel="stylesheet" type="text/css" href="/assets/js/plugin/datatables-1.12.1/src/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" type="text/css" href="/assets/js/plugin/datatables-1.12.1/src/css/dataTables.bootstrap.min.css">
 
-{{-- <script src="/assets/js/plugin/datatables-1.12.1/datatables.min.js"></script> --}}
 <script src="/assets/js/plugin/datatables-1.12.1/src/js/jquery.dataTables.min.js"></script>
 <script src="/assets/js/plugin/datatables-1.12.1/src/js/dataTables.bootstrap4.min.js"></script>
 <script src="/assets/js/plugin/ajaxform/dist/jquery.form.min.js"></script>
-<!-- Datatables -->
-{{-- <script src="/assets/js/plugin/datatables/datatables.min.js"></script> --}}
+
 @endsection
 @section('content')
 <div class="card">
@@ -28,13 +25,13 @@
 	</div>
 	<div class="card-body">
 		<div class="table-responsive">
-			<table id="basic-datatables" class="display table table-borderedx table-striped table-hover" style="width: 100%;">
+			<table id="basic-datatables" class="display table table-bordered table-striped table-hover" style="width: 100%;">
 				<thead>
 					<tr>
 						<th>No</th>
 						<th>Nama Pengguna</th>
-						<th>Username</th>
-						<th>Email</th>
+						<th>Username / NIP</th>
+						{{-- <th>Email</th> --}}
 						<th>Grup</th>
 						<th>Status</th>
 					</tr>
@@ -59,28 +56,36 @@
       <div class="modal-body">
         <form method="post" action="{{route('users.createUpdate')}}" id="form-users" autocomplete="off">
         	@csrf
+
         	<div class="form-group">
-			    <label for="InputEmail">Email address</label>
-			    <input type="email" name="email" class="form-control" id="InputEmail" aria-describedby="emailHelp" placeholder="Enter email">
-			    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-			 </div>
-			 <div class="form-group">
-			    <label for="Inputnama">Nama Lengkap</label>
-			    <input type="text" name="namalengkap" class="form-control" id="Inputnama" placeholder="Masukan nama lengkap">
-			    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-			 </div>
-			 <div class="form-group">
-			    <label for="InputEmail">Grup Pengguna</label>
-			    <select class="form-control" name="role_id">
-			    	<option value="">Pilih</option>
-			    	@foreach($roles as $role)
-			    	<option value="{{$role->id}}">{{$role->name}}</option>
-			    	@endforeach
-			    </select>
-			 </div>
-			 <div class="form-group">
-			 	<button type="submit" id="btn-submit" class="btn btn-primary">Submit</button>
-			 </div>
+					  <label for="Inputnama">NIP :</label>
+				    <input type="text" name="username" class="form-control" id="Inputnama" placeholder="Masukan NIP" required/>
+					</div>
+					<div class="form-group">
+					  <label for="Inputnama">Nama Lengkap :</label>
+				    <input type="text" name="namalengkap" class="form-control" id="Inputnama" placeholder="Masukan nama lengkap" required/>
+					</div>
+        	{{-- <div class="form-group">
+				    <label for="InputEmail">Email :</label>
+				    <input type="email" name="email" class="form-control" id="InputEmail" aria-describedby="emailHelp" placeholder="Enter email">
+			 		</div> --}}
+			 
+				 <div class="form-group">
+				    <label for="InputEmail">Grup Pengguna :</label>
+				    <select class="form-control" name="role_id" required>
+				    	<option value="">Pilih</option>
+				    	@foreach($roles as $role)
+				    	<option value="{{$role->id}}">{{$role->name}}</option>
+				    	@endforeach
+				    </select>
+				 </div>
+				 <div class="form-group">
+				 		<div id="msg-form"></div>
+				 </div>
+				 <div class="form-group">
+				 	<button type="submit" id="btn-submit" class="btn btn-primary">Tambahkan Pengguna Baru</button>
+				 	<button type="button" class="btn btn-default" onclick="batal()">Tutup</button>
+				 </div>
 		</form>
       </div>
       
@@ -113,7 +118,7 @@
 		        },
 		        {data: "namalengkap"},
 		        {data: "username"},
-		        {data: "email"},
+		        // {data: "email"},
 		        {
 		        	data: "role_id",
 		        	searchable:false,
@@ -184,22 +189,42 @@
 
 		$('#form-users').ajaxForm({
 	        beforeSend: function() {
-	          $('#btn-submit').text('Loading...');
+	        	$('#msg-form').html('')
+	          $('#btn-submit')
+	          .attr('disabled','true')
+	          .text('Loading...');
 	        },
 	        success: function(res) {
+	        	$('#btn-submit')
+	        	.removeAttr('disabled')
+	        	.text('Tambahkan Pengguna Baru');
+	        	
+	        	// var res=jQuery.parseJSON(response);
 	        	console.log(res)
-	          // if(res.success){
-	            
-	          // }else{
-	            
-	          // }
+	          if(res.success){
+	            $('#msg-form').html('<div class="alert alert-success">'+res.message+'</div>')
+	            $('#form-users')[0].reset();
+	          }
+	        },
+	        error:function(err,res){
+	        	$('#btn-submit')
+	        	.removeAttr('disabled')
+	        	.text('Tambahkan Pengguna Baru');
+	        	$('#msg-form').html('<div class="alert alert-danger">'+err.responseJSON.message+'</div>')
 	        }
 	    });
 	});
 
 	function addUser(str) {
+		$('#msg-form').html('')
 		$('#mdl-form-user').modal('show')
 		$('#modal-title').text(str)
+	}
+
+	function batal() {
+		$('#msg-form').html('')
+		$('#form-users')[0].reset();
+		$('#mdl-form-user').modal('hide')
 	}
 </script>
 @endsection

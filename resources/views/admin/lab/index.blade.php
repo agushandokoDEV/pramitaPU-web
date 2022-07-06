@@ -1,15 +1,11 @@
 @extends('layouts.base')
 @section('title', 'Kelola Lab')
 @section('assets')
-{{-- <link rel="stylesheet" type="text/css" href="/assets/js/plugin/datatables-1.12.1/src/css/jquery.dataTables.min.css"> --}}
-<link rel="stylesheet" type="text/css" href="/assets/js/plugin/datatables-1.12.1/src/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" type="text/css" href="/assets/js/plugin/datatables-1.12.1/src/css/dataTables.bootstrap.min.css">
 
-{{-- <script src="/assets/js/plugin/datatables-1.12.1/datatables.min.js"></script> --}}
 <script src="/assets/js/plugin/datatables-1.12.1/src/js/jquery.dataTables.min.js"></script>
 <script src="/assets/js/plugin/datatables-1.12.1/src/js/dataTables.bootstrap4.min.js"></script>
 
-<!-- Datatables -->
-{{-- <script src="/assets/js/plugin/datatables/datatables.min.js"></script> --}}
 @endsection
 @section('content')
 <div class="card">
@@ -18,7 +14,7 @@
 	</div>
 	<div class="card-body">
 		<div class="table-responsive">
-			<table id="basic-datatables" class="display table table-borderedx table-striped table-hover" style="width: 100%;">
+			<table id="basic-datatables" class="display table table-bordered table-striped table-hover" style="width: 100%;">
 				<thead>
 					<tr>
 						<th>No</th>

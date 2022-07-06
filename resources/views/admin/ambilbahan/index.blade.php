@@ -36,9 +36,9 @@
 		    </div>
 		    &nbsp;
 		    <div class="input-group">
-		    	<button class="btn btn-primary btn-sm" onclick="get_list_data()"><i class="fa fa-search" style="font-size: 14px;"></i></button>
+		    	<button title="Cari" class="btn btn-primary btn-sm" onclick="get_list_data()"><i class="fa fa-search" style="font-size: 14px;"></i></button>
 		    	&nbsp;
-		    	<button class="btn btn-primary btn-border btn-sm" onclick="get_list_data()"><i class="fa fa-history" style="font-size: 14px;"></i></button>
+		    	<button title="Refresh" class="btn btn-primary btn-border btn-sm" onclick="get_list_data()"><i class="fa fa-history" style="font-size: 14px;"></i></button>
 		    </div>
 		</div>
 		<hr/>

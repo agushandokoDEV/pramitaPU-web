@@ -1,18 +1,11 @@
 @extends('layouts.base')
 @section('title', 'Antar Bahan / Rujukan')
 @section('assets')
-{{-- <link rel="stylesheet" type="text/css" href="/assets/js/plugin/datatables-1.12.1/src/css/jquery.dataTables.min.css"> --}}
-{{-- <link rel="stylesheet" type="text/css" href="/assets/js/plugin/datatables-1.12.1/src/css/dataTables.bootstrap4.min.css"> --}}
 <link rel="stylesheet" type="text/css" href="/assets/js/plugin/datatables-1.12.1/src/css/dataTables.bootstrap.min.css">
-{{-- <link rel="stylesheet" type="text/css" href="/assets/js/plugin/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"> --}}
 
-{{-- <script src="/assets/js/plugin/datatables-1.12.1/datatables.min.js"></script> --}}
 <script src="/assets/js/plugin/datatables-1.12.1/src/js/jquery.dataTables.min.js"></script>
 <script src="/assets/js/plugin/datatables-1.12.1/src/js/dataTables.bootstrap4.min.js"></script>
-{{-- <script src="/assets/js/plugin/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script> --}}
 
-<!-- Datatables -->
-{{-- <script src="/assets/js/plugin/datatables/datatables.min.js"></script> --}}
 @endsection
 @section('content')
 <div class="card">
@@ -36,9 +29,9 @@
 		    </div>
 		    &nbsp;
 		    <div class="input-group">
-		    	<button class="btn btn-primary btn-sm" onclick="get_list_data()"><i class="fa fa-search" style="font-size: 14px;"></i></button>
+		    	<button title="Cari" class="btn btn-primary btn-sm" onclick="get_list_data()"><i class="fa fa-search" style="font-size: 14px;"></i></button>
 		    	&nbsp;
-		    	<button class="btn btn-primary btn-border btn-sm" onclick="get_list_data()"><i class="fa fa-history" style="font-size: 14px;"></i></button>
+		    	<button title="Refresh" class="btn btn-primary btn-border btn-sm" onclick="get_list_data()"><i class="fa fa-history" style="font-size: 14px;"></i></button>
 		    </div>
 		</div>
 		<hr/>

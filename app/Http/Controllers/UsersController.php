@@ -23,15 +23,33 @@ class UsersController extends Controller
 
     public function createUpdate(Request $request)
     {
-        $payload=[
-            'username'=>Str::slug($request->namalengkap, '.'),
-            'email'=>$request->email,
-            'password'=>'admin',
-            'namalengkap'=>$request->namalengkap,
-            'role_id'=>$request->role_id,
-            'status'=>1
-        ];
-        $user=User::create($payload);
-        return $user;
+        $user=User::where('username',$request->username)->first();
+        $username=$request->username;
+
+        if(!$user){
+            $payload=[
+                // 'username'=>Str::slug($request->namalengkap, '.'),
+                'username'=>$request->username,
+                'email'=>$request->email,
+                'password'=>'admin',
+                'namalengkap'=>$request->namalengkap,
+                'role_id'=>$request->role_id,
+                'status'=>1
+            ];
+            $user=User::create($payload);
+            return response()->json([
+                'success'=>true,
+                'data'=>$user,
+                'message'=>'Pengguna baru berhasil ditambahkan'
+            ],200);
+            
+        }else{
+            return response()->json([
+                'success'=>false,
+                'data'=>$user,
+                'message'=>'NIP '.$username.' sudah digunakan'
+            ],400);
+        }
+        
     }
 }
