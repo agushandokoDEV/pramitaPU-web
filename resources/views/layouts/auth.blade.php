@@ -47,7 +47,7 @@
                           <div class="input-group-prepend">
                             <span class="input-group-text" id="txt-username"><i class="fa fa-user"></i></span>
                           </div>
-                          <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="txt-username" value="{{ old('username') }}"/>
+                          <input name="username" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="txt-username" value="{{ old('username') }}"/>
                             
                         </div>
                         @error('username')
@@ -60,7 +60,7 @@
                           <div class="input-group-prepend">
                             <span class="input-group-text" id="txt-password"><i class="fa fa-lock"></i></span>
                           </div>
-                          <input type="password" value="{{ old('password') }}" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="txt-password"/>
+                          <input name="password" type="password" value="{{ old('password') }}" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="txt-password"/>
                             <div class="show-password">
                                 <i class="icon-eye"></i>
                             </div>
