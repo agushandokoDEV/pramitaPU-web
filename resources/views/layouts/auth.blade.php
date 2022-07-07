@@ -40,14 +40,14 @@
                 <img src="/assets/img/pramita-banner.png" style="width: 100%;margin-bottom: 30px;"/>
                 <h3 class="text-center" style="margin-bottom: 10px;">Masuk Admin</h3>
                 {{-- <hr style="margin-top: 0;"/> --}}
-                <form class="login-form" method="post" action="/authenticate">
+                <form id="login-form" method="post" action="/authenticate">
                     @csrf
                     <div>
                         <div class="input-group mt-3">
                           <div class="input-group-prepend">
                             <span class="input-group-text" id="txt-username"><i class="fa fa-user"></i></span>
                           </div>
-                          <input name="username" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="txt-username" value="{{ old('username') }}"/>
+                          <input name="username" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="txt-username" value="{{ old('username') }}" required/>
                             
                         </div>
                         @error('username')
@@ -60,7 +60,7 @@
                           <div class="input-group-prepend">
                             <span class="input-group-text" id="txt-password"><i class="fa fa-lock"></i></span>
                           </div>
-                          <input name="password" type="password" value="{{ old('password') }}" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="txt-password"/>
+                          <input name="password" type="password" value="{{ old('password') }}" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="txt-password" required/>
                             <div class="show-password">
                                 <i class="icon-eye"></i>
                             </div>
@@ -76,9 +76,13 @@
                             <input type="checkbox" class="custom-control-input" id="rememberme">
                             <label class="custom-control-label m-0" for="rememberme">Remember Me</label>
                         </div> --}}
-                        <button type="submit" class="btn btn-danger col-md-5 float-right mt-3 mt-sm-0 fw-bold">
+                        <button id="btn-submit" type="submit" class="btn btn-danger col-md-5 float-right mt-3 mt-sm-0 fw-bold">
                             Masuk
                         </button>
+                    </div>
+
+                    <div class="orm-action-d-flex mt-3">
+                        <div id="msg-form"></div>
                     </div>
                     {{-- <hr style="margin-top: 50px;"/>
                     <address class="text-center">
@@ -143,5 +147,35 @@
     <script src="/assets/js/core/popper.min.js"></script>
     <script src="/assets/js/core/bootstrap.min.js"></script>
     <script src="/assets/js/atlantis.min.js"></script>
+    <script src="/assets/js/plugin/ajaxform/dist/jquery.form.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#login-form').ajaxForm({
+                beforeSend: function() {
+                    $('#btn-submit')
+                      .attr('disabled','true')
+                      .text('Loading...');
+                },
+                success: function(res) {
+                    if(res.success){
+                        var uri='/home'
+                        // if(res.data.role_id === '58e6f1e2-d875-4d73-b8d4-67e997214194'){
+                        //     uri='ambilbahan'
+                        // }
+                        window.location.href=uri
+                    }
+                    
+                },
+                error:function(err){
+
+                    $('#btn-submit')
+                    .removeAttr('disabled')
+                    .text('Masuk');
+                    $('#msg-form').html('<div class="alert alert-danger">'+err.responseJSON.message+'</div>')
+                }
+        });
+        });
+    </script>
 </body>
 </html>

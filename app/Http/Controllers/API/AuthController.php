@@ -19,7 +19,10 @@ class AuthController extends Controller
             ]
         );
 
-        $login=User::where('username',$request->username)->first();
+        $login=User::with(['roles'])
+        ->where('username',$request->username)
+        ->where('role_id','edd4c20f-1545-4f31-8164-87515feedc0b')
+        ->first();
         if(!$login || !Hash::check($request->password, $login->password))
         {
             return response()->json([

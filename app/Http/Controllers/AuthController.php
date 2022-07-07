@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Users;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -29,6 +30,51 @@ class AuthController extends Controller
 
 
     public function authenticate(Request $request)
+    {
+        $request->validate(
+            [
+                'username'=>['required'],
+                'password'=>['required']
+            ]
+        );
+
+        $login=User::with(['roles'])
+            ->where('username',$request->username)
+            ->first();
+        if(!$login || !Hash::check($request->password, $login->password) || $login->role_id == 'edd4c20f-1545-4f31-8164-87515feedc0b')
+        {
+            return response()->json([
+                'success'=>false,
+                'message'=>'Username atau password anda salah'
+            ],400);
+        }
+
+        if($login->status != 1)
+        {
+            return response()->json([
+                'success'=>false,
+                'message'=>'Akun anda sudah tidak aktif, silahkan hubungi admin'
+            ],400);
+        }
+
+        // if($login->role_id == 'edd4c20f-1545-4f31-8164-87515feedc0b')
+        // {
+        //     return response()->json([
+        //         'success'=>false,
+        //         'message'=>'Maaf anda bukan'
+        //     ],400);
+        // }
+
+        Auth::login($login);
+        
+        return response()->json([
+            'success'=>true,
+            'message'=>'Login berhasil',
+            'data'=>$login
+        ],200);
+    }
+
+    public function Xauthenticate(Request $request)
     {
         $request->validate(
             [
