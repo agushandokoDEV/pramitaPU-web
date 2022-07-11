@@ -409,6 +409,11 @@
                                             <span class="sub-item">Dokter</span>
                                         </a>
                                     </li>
+                                    <li class="active">
+                                        <a href="{{route('jenisuraianpekerjaan.index') }}">
+                                            <span class="sub-item">Jenis Uraian Pekerjaan</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         </li>

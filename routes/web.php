@@ -13,6 +13,7 @@ use App\Http\Controllers\AntarBahanController;
 use App\Http\Controllers\InstansiController;
 use App\Http\Controllers\PengantaranDokterController;
 use App\Http\Controllers\DokterController;
+use App\Http\Controllers\JenisUraianPekerjaanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,6 +54,9 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::get('/dokter',[DokterController::class,'index'])->name('dokter.index');
     Route::get('/dokter/all',[DokterController::class,'all'])->name('dokter.all');
+
+    Route::get('/jenisuraianpekerjaan',[JenisUraianPekerjaanController::class,'index'])->name('jenisuraianpekerjaan.index');
+    Route::get('/jenisuraianpekerjaan/all',[JenisUraianPekerjaanController::class,'all'])->name('jenisuraianpekerjaan.all');
 
     Route::get('/ambilbahan',[AmbilbahanController::class,'index'])->name('ambilbahan.index');
     Route::get('/ambilbahan/all',[AmbilbahanController::class,'all'])->name('ambilbahan.all');

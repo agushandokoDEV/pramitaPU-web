@@ -9,7 +9,7 @@ class DokterController extends Controller
 {
     public function index(Request $request)
     {
-        return view('admin.lab.index');
+        return view('admin.dokter.index');
     }
 
     public function all(Request $request)
