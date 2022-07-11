@@ -32,7 +32,7 @@ class AmbilBahanController extends Controller
         $listtabung=[];
 
         $payload['tabung']=$request->tabung;
-        if(count($request->tabung) > 0)
+        if(is_array($request->tabung) && count($request->tabung) > 0)
         {
             foreach ($request->tabung as $key => $item) {
                 $listtabung[]=array(
@@ -50,7 +50,7 @@ class AmbilBahanController extends Controller
         return response()->json([
             'success'=>true,
             'data'=>$data,
-            'message'=>'ambil bahan / kunjungan berhasi ditambahkan'
+            'message'=>'Ambil bahan / kunjungan berhasi ditambahkan'
         ],200);
     }
 }

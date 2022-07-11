@@ -11,7 +11,7 @@ class Kegiatan extends Model
 
     protected $table='kegiatan';
     protected $keyType = 'string';
-    protected $fillable = ['user_id','ambil_bahan_id','jenis','lab_id','antar_bahan_id','instansi_id','pengantaran_dokter_id'];
+    protected $fillable = ['user_id','ambil_bahan_id','jenis','lab_id','antar_bahan_id','instansi_id','pengantaran_dokter_id','job_lainnya_id'];
 
     public function antarbahan()
     {
@@ -38,14 +38,24 @@ class Kegiatan extends Model
         return $this->belongsTo(Lab::class, 'lab_id');
     }
 
-    public function tabung()
+    public function uraianpekerjaan()
     {
-        return $this->hasMany(
-            TabungAmbilBahan::class,
-            'ambil_bahan_id',
-            'ambil_bahan_id',
-        );
+        return $this->belongsTo(UraianPekerjaan::class, 'uraian_pekerjaan_id');
     }
+
+    public function lainnya()
+    {
+        return $this->belongsTo(JobLainnya::class, 'job_lainnya_id');
+    }
+    
+    // public function dokter()
+    // {
+    //     return $this->hasMany(
+    //         PengantaranDokter::class,
+    //         'dokter_id',
+    //         'id',
+    //     );
+    // }
 
     // public function tabung()
     // {

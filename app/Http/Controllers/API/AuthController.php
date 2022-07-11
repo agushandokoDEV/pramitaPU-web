@@ -10,6 +10,41 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+    public function register(Request $request)
+    {
+        $request->validate(
+            [
+                'namalengkap'=>['required'],
+                'username'=>['required'],
+                'password'=>['required']
+            ]
+        );
+
+        $cek=User::where('username',$request->username)->first();
+
+        if($cek){
+            return response()->json([
+                'success'=>false,
+                'message'=>'NIK sudah digunakan'
+            ],200);
+        }
+        $user=User::create([
+            'username'=>$request->username,
+            'password'=>$request->password,
+            'namalengkap'=>ucwords($request->namalengkap),
+            'role_id'=>'edd4c20f-1545-4f31-8164-87515feedc0b',
+            'status'=>1
+        ]);
+
+        return response()->json([
+            'success'=>true,
+            'token'=> $user->createToken('token-name')->plainTextToken,
+            'data'=>$user,
+            'message'=>'Pendafataran akun berhasil'
+        ],200);
+    }
+
+
     public function authenticate(Request $request)
     {
         $request->validate(
@@ -27,7 +62,7 @@ class AuthController extends Controller
         {
             return response()->json([
                 'success'=>false,
-                'message'=>'Username atau password anda salah'
+                'message'=>'NIK atau password anda salah'
             ],200);
         }
 

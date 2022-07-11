@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\PengantaranDokter;
 use App\Models\Kegiatan;
+use App\Models\JenisUraianPekerjaanTerpilih;
 
 class PengantaranDokterController extends Controller
 {
@@ -14,9 +15,8 @@ class PengantaranDokterController extends Controller
     {
         $row=PengantaranDokter::create([
             'user_id'=>Auth::user()->id,
-            'jenis_keg'=>$request->jenis_keg,
-            'tujuan'=>$request->tujuan,
             'ket'=>$request->ket,
+            'tujuan'=>$request->tujuan,
             'created_at'=>date('Y-m-d H:i:d')
         ]);
 
@@ -25,11 +25,34 @@ class PengantaranDokterController extends Controller
             'jenis'=>'pengantaran_dokter',
             'pengantaran_dokter_id'=>$row->id
         ]);
-        
-        return response()->json([
-            'success'=>true,
-            'data'=>$row,
-            'message'=>'pengantaran dokter berhasi ditambahkan'
-        ],200);
+
+        $listuraianpekerjaan=[];
+        if(is_array($request->jenisuraianpekerjaan) && count($request->jenisuraianpekerjaan) > 0)
+        {
+            foreach ($request->jenisuraianpekerjaan as $item) {
+                $listuraianpekerjaan[]=array(
+                    'pengantaran_dokter_id'=>$row->id,
+                    'jenis_uraian_pekerjaan_id'=>$item
+                );
+            }
+
+            $jenisuraianpekerjaan=JenisUraianPekerjaanTerpilih::insert($listuraianpekerjaan);
+            $data['row']=$row;
+            $data['jenisuraianpekerjaan']=$jenisuraianpekerjaan;
+            
+            return response()->json([
+                'success'=>true,
+                'data'=>$data,
+                'message'=>'Data berhasil ditambahkan'
+            ],200);
+
+        }
+        else
+        {
+            return response()->json([
+                'success'=>false,
+                'message'=>'Tidak ada uraian pekerjaan yang dipilih'
+            ],400);
+        }
     }
 }
