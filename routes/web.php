@@ -12,6 +12,7 @@ use App\Http\Controllers\AmbilbahanController;
 use App\Http\Controllers\AntarBahanController;
 use App\Http\Controllers\InstansiController;
 use App\Http\Controllers\PengantaranDokterController;
+use App\Http\Controllers\DokterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,9 @@ Route::group(['middleware' => 'auth'], function() {
     
     Route::get('/lab',[LabController::class,'index'])->name('lab.index');
     Route::get('/lab/all',[LabController::class,'all'])->name('lab.all');
+
+    Route::get('/dokter',[DokterController::class,'index'])->name('dokter.index');
+    Route::get('/dokter/all',[DokterController::class,'all'])->name('dokter.all');
 
     Route::get('/ambilbahan',[AmbilbahanController::class,'index'])->name('ambilbahan.index');
     Route::get('/ambilbahan/all',[AmbilbahanController::class,'all'])->name('ambilbahan.all');

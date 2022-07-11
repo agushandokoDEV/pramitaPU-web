@@ -404,6 +404,11 @@
                                             <span class="sub-item">Tabung</span>
                                         </a>
                                     </li>
+                                    <li class="active">
+                                        <a href="{{route('dokter.index') }}">
+                                            <span class="sub-item">Dokter</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         </li>
