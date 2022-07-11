@@ -8,15 +8,28 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\PengantaranDokter;
 use App\Models\Kegiatan;
 use App\Models\JenisUraianPekerjaanTerpilih;
+use App\Models\Dokter;
 
 class PengantaranDokterController extends Controller
 {
+
+    public function list()
+    {
+        $data=Dokter::orderBy('nama')->get();
+
+        return response()->json([
+            'success'=>true,
+            'data'=>$data,
+            'message'=>'list dokter'
+        ],200);
+    }
+
     public function Add(Request $request)
     {
         $row=PengantaranDokter::create([
             'user_id'=>Auth::user()->id,
             'ket'=>$request->ket,
-            'tujuan'=>$request->tujuan,
+            'dokter_id'=>$request->tujuan,
             'created_at'=>date('Y-m-d H:i:d')
         ]);
 

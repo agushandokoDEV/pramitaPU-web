@@ -12,7 +12,6 @@ use App\Http\Controllers\API\InstansiController;
 use App\Http\Controllers\API\PengantaranDokterController;
 use App\Http\Controllers\API\JobLainnyaController;
 use App\Http\Controllers\API\JenisUraianPekerjaanController;
-use App\Http\Controllers\API\DokterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,7 +37,7 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
 
     Route::get('/lab',[LabController::class,'list'])->name('lab.list');
     Route::get('/tabung',[TabungController::class,'list'])->name('tabung.list');
-    Route::get('/dokter',[DokterController::class,'list'])->name('dokter.list');
+    Route::get('/dokter',[PengantaranDokterController::class,'list'])->name('dokter.list');
     Route::post('/ambil-bahan',[AmbilBahanController::class,'Add'])->name('ambilbahan.add');
     Route::post('/antar-bahan',[AntarBahanController::class,'Add'])->name('antarbahan.add');
     Route::post('/instansi',[InstansiController::class,'Add'])->name('instansi.add');
