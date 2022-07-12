@@ -29,7 +29,7 @@ class PengantaranDokterController extends Controller
         $row=PengantaranDokter::create([
             'user_id'=>Auth::user()->id,
             'ket'=>$request->ket,
-            'tujuan'=>$request->tujuan,
+            'dokter_id'=>$request->tujuan,
             'created_at'=>date('Y-m-d H:i:d')
         ]);
 
