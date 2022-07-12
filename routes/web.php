@@ -66,6 +66,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/ambilbahan/tabung/{id}',[AmbilbahanController::class,'tabung'])->name('ambilbahan.tabung');
     Route::post('/ambilbahan/approved/{id}',[AmbilbahanController::class,'approved'])->name('ambilbahan.approved');
     Route::get('/ambilbahan/byid/{id}',[AmbilbahanController::class,'byid'])->name('ambilbahan.byid');
+    Route::get('/ambilbahan/laporan',[AmbilbahanController::class,'laporan'])->name('ambilbahan.laporan');
 
     Route::get('/antarbahan',[AntarBahanController::class,'index'])->name('antarbahan.index');
     Route::get('/antarbahan/all',[AntarBahanController::class,'all'])->name('antarbahan.all');

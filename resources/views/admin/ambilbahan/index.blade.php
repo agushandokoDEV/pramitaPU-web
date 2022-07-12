@@ -33,12 +33,14 @@
 		      		<span class="input-group-text"><i class="fa fa-calendar"></i></span>
 		      	</div>
 		      	<input type="date" class="form-control form-control-sm" placeholder="Tanggal" id="tgl-sampai" />
-		    </div>
-		    &nbsp;
+		    	</div>
+		    	&nbsp;
 		    <div class="input-group">
 		    	<button title="Cari" class="btn btn-primary btn-sm" onclick="get_list_data()"><i class="fa fa-search" style="font-size: 14px;"></i></button>
 		    	&nbsp;
 		    	<button title="Refresh" class="btn btn-primary btn-border btn-sm" onclick="get_list_data()"><i class="fa fa-history" style="font-size: 14px;"></i></button>
+		    	&nbsp;
+		    	<a href="/ambilbahan/laporan" target="_blank" title="Refresh" class="btn btn-primary btn-border btn-sm" onclick="get_list_data()"><i class="fa fa-history" style="font-size: 14px;"></i></a>
 		    </div>
 		</div>
 		<hr/>

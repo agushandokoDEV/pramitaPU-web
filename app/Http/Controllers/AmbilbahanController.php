@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\AmbilBahan;
 use App\Models\TabungAmbilBahan;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\AmbilBahanExport;
 
 class AmbilbahanController extends Controller
 {
@@ -47,5 +49,11 @@ class AmbilbahanController extends Controller
         $data->approved_by=Auth::user()->id;
         $data->save();
         return response()->json($data);
+    }
+
+    public function laporan(Request $request)
+    {
+        return Excel::download(new AmbilBahanExport,'ambil_bahan.xlsx');
+        // return (new AmbilBahanExport)->download('ambil_bahan.xlsx');
     }
 }
