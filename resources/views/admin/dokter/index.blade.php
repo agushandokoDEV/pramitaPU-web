@@ -5,20 +5,32 @@
 
 <script src="/assets/js/plugin/datatables-1.12.1/src/js/jquery.dataTables.min.js"></script>
 <script src="/assets/js/plugin/datatables-1.12.1/src/js/dataTables.bootstrap4.min.js"></script>
+<script src="/assets/js/plugin/ajaxform/dist/jquery.form.min.js"></script>
 
 @endsection
 @section('content')
 <div class="card">
 	<div class="card-header">
-		<h4 class="card-title">Dokter</h4>
+		<div class="d-flex justify-content-between bd-highlight">
+			<div><h4 class="card-title">Dokter</h4></div>
+			<div>
+				<button onclick="addDokter('Tambah Dokter')" class="btn btn-danger btn-sm btn-border btn-round">
+					<span class="btn-label">
+						<i class="fa fa-plus"></i>
+					</span>
+					Tambah Dokter
+				</button>
+			</div>
+		</div>
 	</div>
 	<div class="card-body">
 		<div class="table-responsive">
 			<table id="basic-datatables" class="display table table-bordered table-striped table-hover" style="width: 100%;">
 				<thead>
 					<tr>
-						<th>No</th>
+						<th style="width:5%">No</th>
 						<th>Nama Dokter</th>
+						<th style="width:5%">Aksi</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -27,6 +39,36 @@
 			</table>
 		</div>
 	</div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" id="mdl-form-dokter">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal-title">-</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="post" action="/dokter/add" id="form-dokter" autocomplete="off">
+        	@csrf
+        	<input type="hidden" name="id" id="inp-id"/>
+    		<div class="form-group">
+				  <label for="Inputnama">Nama Dokter :</label>
+			    <input type="text" name="nama" class="form-control" id="inp-nama" placeholder="Masukan Nama dokter" required/>
+				</div>
+			<div class="form-group">
+			 	<div id="msg-form"></div>
+			</div>
+			<div class="form-group">
+			 	<button type="submit" id="btn-submit" class="btn btn-primary">Tambahkan Dokter Baru</button>
+			 	<button type="button" class="btn btn-default" onclick="batal()">Tutup</button>
+			</div>
+		</form>
+      </div>
+    </div>
+  </div>
 </div>
 
 @section('script')
@@ -53,7 +95,17 @@
 		        },
 		        {data: "nama"},
 		    ],
-		    
+		    "columnDefs": [
+		    	{
+	            "targets": 2,
+	            "render": function(data, type, row, meta){
+
+	               	var str='';
+	               	str += ' <button onclick="get_detail('+"'"+row.id+"'"+')" title="Edit '+row.nama+'" class="btn btn-sm btn-info"><i class="fa fa-pencil-alt" style="font-size:15px"></i></button>';
+	               	return str;
+	            }
+	        },
+		    ],
 		    "language": {
 	            "lengthMenu": "_MENU_",
 	            // "processing": "<img src='/img/loading.gif' />"
@@ -97,7 +149,85 @@
 			var data = table.row( this ).data();
 			console.log(data);
 		});
+
+
+
+		$('#form-dokter').ajaxForm({
+	        beforeSend: function() {
+	        	$('#msg-form').html('')
+	        	$('#btn-submit')
+		          .attr('disabled','true')
+		          .text('Loading...');
+	        },
+	        success: function(res) {
+	        	var btn_text='Tambahkan Dokter Baru';
+	        	if($('#inp-id').val() !=''){
+	        		btn_text='Edit Dokter'
+	        	}
+	        	$('#btn-submit')
+	        	.removeAttr('disabled')
+	        	.text(btn_text);
+	        	
+	        	// var res=jQuery.parseJSON(response);
+	        	// console.log(res)
+	          if(res.success){
+	            $('#msg-form').html('<div class="alert alert-success">'+res.message+'</div>')
+	            if($('#inp-id').val() ===''){
+					 $('#form-dokter')[0].reset();
+			  	}
+			  	table.ajax.url('/dokter/all').load();
+	          }
+	        },
+	        error:function(err,res){
+	        	var btn_text='Tambahkan Dokter Baru';
+	        	if($('#inp-id').val() !=''){
+	        		btn_text='Edit Dokter'
+	        	}
+	        	$('#btn-submit')
+	        	.removeAttr('disabled')
+	        	.text(btn_text);
+	        	$('#msg-form').html('<div class="alert alert-danger">'+err.responseJSON.message+'</div>')
+	        }
+	    });
+
 	});
+
+	// function get_detail(id) {
+	// 	$.get('/dokter/row/'+id,function(res){
+	// 		console.log(res)
+	// 	})
+	// }
+
+	function addDokter(str) {
+		$('#msg-form').html('')
+		$('#form-dokter').attr('action','/dokter/add')
+		$('#inp-id').val('')
+		$('#btn-submit').text('Tambahkan Dokter');
+		$('#mdl-form-dokter').modal('show')
+		$('#modal-title').text(str)
+	}
+
+	function get_detail(id) {
+		$.get('/dokter/row/'+id,function(res){
+			if(res.success){
+				$('#inp-id').val(res.data.id);
+				$('#inp-nama').val(res.data.nama);
+				$('#form-dokter').attr('action','/dokter/edit')
+				$('#btn-submit').text('Edit Dokter');
+				$('#mdl-form-dokter').modal('show')
+				$('#modal-title').text('Edit Dokter')
+			}else{
+				alert(res.message)
+			}
+		});
+	}
+
+	function batal() {
+		$('#msg-form').html('')
+		$('#form-dokter')[0].reset();
+		
+		$('#mdl-form-dokter').modal('hide')
+	}
 </script>
 @endsection
 @endsection

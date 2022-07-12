@@ -54,6 +54,9 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::get('/dokter',[DokterController::class,'index'])->name('dokter.index');
     Route::get('/dokter/all',[DokterController::class,'all'])->name('dokter.all');
+    Route::post('/dokter/add',[DokterController::class,'add'])->name('dokter.add');
+    Route::get('/dokter/row/{id}',[DokterController::class,'findByid'])->name('dokter.findByid');
+    Route::post('/dokter/edit',[DokterController::class,'update'])->name('dokter.update');
 
     Route::get('/jenisuraianpekerjaan',[JenisUraianPekerjaanController::class,'index'])->name('jenisuraianpekerjaan.index');
     Route::get('/jenisuraianpekerjaan/all',[JenisUraianPekerjaanController::class,'all'])->name('jenisuraianpekerjaan.all');
