@@ -22,4 +22,13 @@ class AmbilBahan extends Model
     {
         return $this->belongsTo(Lab::class, 'lab_id');
     }
+
+    public function listtabung()
+    {
+        return $this->hasMany(
+            TabungAmbilBahan::class,
+            'ambil_bahan_id',
+            'id',
+        );
+    }
 }

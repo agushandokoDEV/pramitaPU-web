@@ -40,7 +40,7 @@
 		    	&nbsp;
 		    	<button title="Refresh" class="btn btn-primary btn-border btn-sm" onclick="get_list_data()"><i class="fa fa-history" style="font-size: 14px;"></i></button>
 		    	&nbsp;
-		    	<a href="/ambilbahan/laporan" target="_blank" title="Refresh" class="btn btn-primary btn-border btn-sm" onclick="get_list_data()"><i class="fa fa-history" style="font-size: 14px;"></i></a>
+		    	<a href="/ambilbahan/laporan" target="_blank" title="Refresh" class="btn btn-primary btn-border btn-sm" onclick="get_list_data()"><i class="fa fa-print" style="font-size: 14px;"></i></a>
 		    </div>
 		</div>
 		<hr/>

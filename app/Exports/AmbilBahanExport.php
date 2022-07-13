@@ -6,16 +6,20 @@ use App\Models\AmbilBahan;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithCustomStartCell;
-use Maatwebsite\Excel\Concerns\WithHeadings;
+// use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 // use Maatwebsite\Excel\Concerns\WithStyles;
 // use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Maatwebsite\Excel\Concerns\FromArray;
-use Maatwebsite\Excel\Concerns\WithTitle;
+// use Maatwebsite\Excel\Concerns\WithTitle;
+use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Concerns\WithStyles;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class AmbilBahanExport implements FromArray,WithCustomStartCell,WithHeadings,ShouldAutoSize,WithTitle
+class AmbilBahanExport implements FromView,WithCustomStartCell,ShouldAutoSize
 {
     /**
     * @return \Illuminate\Support\Collection
@@ -34,24 +38,41 @@ class AmbilBahanExport implements FromArray,WithCustomStartCell,WithHeadings,Sho
     //     return AmbilBahan::with(['user','lab'])->query();
     // }
 
-    public function array(): array
+    // public function array(): array
+    // {
+    //     return [
+    //         [
+    //             'name' => 'Povilas',
+    //             'email' => 'povilas@laraveldaily.com',
+    //         ],
+    //         [
+    //             'name' => 'Taylor',
+    //             'email' => 'taylor@laravel.com',
+    //             'tabung'=>[
+    //                 ['nama'=>'a'],
+    //                 ['nama'=>'b'],
+    //             ]
+    //         ],
+    //     ];
+    // }
+
+
+    public function view(): View
     {
-        return [
-            [
-                'name' => 'Povilas',
-                'email' => 'povilas@laraveldaily.com',
-            ],
-            [
-                'name' => 'Taylor',
-                'email' => 'taylor@laravel.com',
-                'tabung'=>[
-                    ['nama'=>'a'],
-                    ['nama'=>'b'],
-                ]
-            ],
-        ];
+        $data=AmbilBahan::with(['user','lab','listtabung','listtabung.tabung'])
+        // ->whereDate('created_at', '>=', $from)
+        // ->whereDate('created_at', '<=', $to)
+        ->get();
+
+        // dd($data);
+
+        return view('admin.ambilbahan.laporan', ['data' => $data]);
     }
 
+    public function styles(Worksheet $sheet)
+    {
+        $sheet->getStyle('A1')->getFont()->setBold(true);
+    }
 
     // public function map($data): array
     // {
@@ -72,18 +93,18 @@ class AmbilBahanExport implements FromArray,WithCustomStartCell,WithHeadings,Sho
         return 'A4';
     }
 
-    public function headings(): array
-    {
-        return [
-            'Tanggal',
-            'Nama Petugas',
-            'Tujuan Lab',
-            'Nama Pasien',
-            'Yang Menyerahkan',
-            'Yang Menerima',
-            'Jam'
-        ];
-    }
+    // public function headings(): array
+    // {
+    //     return [
+    //         'Tanggal',
+    //         'Nama Petugas',
+    //         'Tujuan Lab',
+    //         'Nama Pasien',
+    //         'Yang Menyerahkan',
+    //         'Yang Menerima',
+    //         'Jam'
+    //     ];
+    // }
 
     // public function styles(Worksheet $sheet)
     // {
