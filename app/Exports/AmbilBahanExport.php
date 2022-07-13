@@ -62,6 +62,7 @@ class AmbilBahanExport implements FromView,WithCustomStartCell,ShouldAutoSize
         $data=AmbilBahan::with(['user','lab','listtabung','listtabung.tabung'])
         // ->whereDate('created_at', '>=', $from)
         // ->whereDate('created_at', '<=', $to)
+        ->orderBy('created_at', 'DESC')
         ->get();
 
         // dd($data);
