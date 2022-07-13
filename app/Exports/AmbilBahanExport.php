@@ -13,8 +13,9 @@ use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 // use Maatwebsite\Excel\Concerns\WithStyles;
 // use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Maatwebsite\Excel\Concerns\FromArray;
+use Maatwebsite\Excel\Concerns\WithTitle;
 
-class AmbilBahanExport implements FromArray,WithCustomStartCell,WithHeadings,ShouldAutoSize
+class AmbilBahanExport implements FromArray,WithCustomStartCell,WithHeadings,ShouldAutoSize,WithTitle
 {
     /**
     * @return \Illuminate\Support\Collection
