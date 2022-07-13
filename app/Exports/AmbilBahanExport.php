@@ -18,9 +18,21 @@ use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use Maatwebsite\Excel\Concerns\Exportable;
 
 class AmbilBahanExport implements FromView,WithCustomStartCell,ShouldAutoSize
 {
+    use Exportable;
+
+    private $from=null;
+    private $to=null;
+
+    public function __construct(String $from, String $to)
+    {
+        // dd($from);
+        $this->from=$from;
+        $this->to=$to;
+    }
     /**
     * @return \Illuminate\Support\Collection
     */
@@ -59,15 +71,17 @@ class AmbilBahanExport implements FromView,WithCustomStartCell,ShouldAutoSize
 
     public function view(): View
     {
-        $data=AmbilBahan::with(['user','lab','listtabung','listtabung.tabung'])
-        // ->whereDate('created_at', '>=', $from)
-        // ->whereDate('created_at', '<=', $to)
+        $data['list']=AmbilBahan::with(['user','lab','listtabung','listtabung.tabung'])
+        ->whereDate('created_at', '>=', $this->from)
+        ->whereDate('created_at', '<=', $this->to)
         ->orderBy('created_at', 'DESC')
         ->get();
 
+        $data['filter']=(object) array('from'=>$this->from,'to'=>$this->to);
+
         // dd($data);
 
-        return view('admin.ambilbahan.laporan', ['data' => $data]);
+        return view('admin.ambilbahan.laporan', ['data' => (object)$data]);
     }
 
     public function styles(Worksheet $sheet)

@@ -2,13 +2,13 @@
 <p></p> --}}
 <table>
 	<thead>
-		<th style="font-size: 20px;" height="30" colspan="8" align="center"><b>LAPORAN</b></th>
+		<th style="font-size: 20px;" height="30" colspan="8" align="center"><b>LAPORAN AMBIL BAHAN / KUNJUNGAN</b></th>
 	</thead>
 </table>
 
 <table>
 	<thead>
-		<th style="font-size: 14px;" height="30" colspan="8" align="center">Tanggal</th>
+		<th style="font-size: 14px;" height="30" colspan="8" align="center">Tanggal {{$data->filter->from}} - {{$data->filter->to}}</th>
 	</thead>
 </table>
 
@@ -26,18 +26,18 @@
     </tr>
     </thead>
     <tbody>
-	    @foreach($data as $item)
+	    @foreach($data->list as $item)
 	        <tr>
-	            <td>{{ $item->created_at }}</td>
+	            <td>{{ date('Y-m-d H:i:s', strtotime($item->created_at)) }}</td>
 	            <td>{{ $item->user->namalengkap }}</td>
 	            <td>{{ $item->lab->nama }}</td>
 	            <td>{{ $item->nama_pasien }}</td>
 	            <td>{{ $item->yg_menyerahkan }}</td>
 	            <td>{{ $item->yg_menerima }}</td>
-	            <td>{{ $item->approved_at }}</td>
+	            <td>{{ $item->approved_at != null?date('Y-m-d H:i:s', strtotime($item->approved_at)):'' }}</td>
 	            <td>
 	            	@foreach($item->listtabung as $tabung)
-	            	<p>- {{$tabung->tabung->nama}} ({{$tabung->jumlah}})</p>
+	            	<p>- {{$tabung->tabung->nama}}  ({{$tabung->jumlah}})</p>
 			        @endforeach
 	            </td>
 	        </tr>

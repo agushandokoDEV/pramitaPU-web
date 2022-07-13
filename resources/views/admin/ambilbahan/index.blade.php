@@ -40,7 +40,7 @@
 		    	&nbsp;
 		    	<button title="Refresh" class="btn btn-primary btn-border btn-sm" onclick="get_list_data()"><i class="fa fa-history" style="font-size: 14px;"></i></button>
 		    	&nbsp;
-		    	<a href="/ambilbahan/laporan" target="_blank" title="Refresh" class="btn btn-primary btn-border btn-sm" onclick="get_list_data()"><i class="fa fa-print" style="font-size: 14px;"></i></a>
+		    	<a id="cetak-laporan" href="javascript:void(0)" target="_blank" title="Cetak Laporan" class="btn btn-success btn-sm"><i class="fa fa-print" style="font-size: 14px;"></i></a>
 		    </div>
 		</div>
 		<hr/>
@@ -48,7 +48,7 @@
 			<table id="basic-datatables" class="display table table-bordered table-striped table-hover" style="width: 100%;">
 				<thead>
 					<tr>
-						<th>No</th>
+						<th style="width:3%">No</th>
 						<th>Tanggal</th>
 						<th>Nama Petugas</th>
 						<th>Tujuan Lab</th>
@@ -309,7 +309,7 @@ function set_data(data) {
 				}
 				$('#list-data-ambil-bahan').html(list_data)
 			}else{
-				$('#list-data-ambil-bahan').html('<tr><td class="text-center" colspan="3">Tidak ada data</td></tr>');
+				$('#list-data-ambil-bahan').html('<tr><td class="text-center" colspan="3">Tidak ada bahan</td></tr>');
 			}
 			
 		});
@@ -325,8 +325,8 @@ function convert_date(tgl) {
 
 function get_list_data(){
 	var tgl_dr = $('#tgl-dari').val()
-	console.log(tgl_dr)
-    table.ajax.url('{{url('ambilbahan/all')}}?tgl-dari='+$('#tgl-dari').val()+'&tgl-sampai='+$('#tgl-sampai').val()).load();
+  table.ajax.url('{{url('ambilbahan/all')}}?tgl-dari='+$('#tgl-dari').val()+'&tgl-sampai='+$('#tgl-sampai').val()).load();
+  $('#cetak-laporan').attr('href','/ambilbahan/laporan?from='+$('#tgl-dari').val()+'&to='+$('#tgl-sampai').val())
     //table.ajax.reload(null,false);
 }
 
