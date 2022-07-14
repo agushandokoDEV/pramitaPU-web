@@ -8,7 +8,12 @@
 
 <table>
 	<thead>
-		<th style="font-size: 14px;" height="30" colspan="8" align="center">Tanggal {{$data->filter->from}} - {{$data->filter->to}}</th>
+		<th style="font-size: 14px;" height="20" colspan="8" align="center">Tanggal {{$data->filter->from}} - {{$data->filter->to}}</th>
+	</thead>
+</table>
+<table>
+	<thead>
+		<th colspan="8">&nbsp;</th>
 	</thead>
 </table>
 

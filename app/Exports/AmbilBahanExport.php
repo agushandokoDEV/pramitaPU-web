@@ -19,6 +19,9 @@ use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Maatwebsite\Excel\Concerns\Exportable;
+use Carbon\Carbon;
+// use Maatwebsite\Excel\Concerns\WithEvents;
+// use Maatwebsite\Excel\Events\BeforeSheet;
 
 class AmbilBahanExport implements FromView,WithCustomStartCell,ShouldAutoSize
 {
@@ -68,6 +71,16 @@ class AmbilBahanExport implements FromView,WithCustomStartCell,ShouldAutoSize
     //     ];
     // }
 
+    // public function registerEvents(): array
+    // {
+    //     return [
+    //         BeforeSheet::class => function (BeforeSheet $event) {
+    //             $event->sheet
+    //                 ->getPageSetup()
+    //                 ->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
+    //         }
+    //     ];
+    // }
 
     public function view(): View
     {
@@ -77,7 +90,10 @@ class AmbilBahanExport implements FromView,WithCustomStartCell,ShouldAutoSize
         ->orderBy('created_at', 'DESC')
         ->get();
 
-        $data['filter']=(object) array('from'=>$this->from,'to'=>$this->to);
+        $data['filter']=(object) array(
+            'from'=>Carbon::parse($this->from)->isoFormat('D MMMM Y'),
+            'to'=>Carbon::parse($this->to)->isoFormat('D MMMM Y')
+        );
 
         // dd($data);
 

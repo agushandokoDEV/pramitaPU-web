@@ -70,10 +70,12 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::get('/antarbahan',[AntarBahanController::class,'index'])->name('antarbahan.index');
     Route::get('/antarbahan/all',[AntarBahanController::class,'all'])->name('antarbahan.all');
+    Route::get('/antarbahan/laporan',[AntarBahanController::class,'laporan'])->name('antarbahan.laporan');
 
     Route::get('/instansi',[InstansiController::class,'index'])->name('instansi.index');
     Route::get('/instansi/all',[InstansiController::class,'all'])->name('instansi.all');
-
+    Route::get('/instansi/laporan',[InstansiController::class,'laporan'])->name('instansi.laporan');
+    
     Route::get('/lain-lain',[PengantaranDokterController::class,'index'])->name('pengantarandokter.index');
     Route::get('/lain-lain/all',[PengantaranDokterController::class,'all'])->name('pengantarandokter.all');
 });

@@ -55,8 +55,9 @@ class AmbilbahanController extends Controller
     {
         $from=$request->input('from')?$request->input('from'):date('Y-m-d');
         $to=$request->input('to')?$request->input('to'):date('Y-m-d');
-        // return Excel::download(new AmbilBahanExport($from,$to),'ambil_bahan.xlsx');
-        return (new AmbilBahanExport($from,$to))->download('ambil_bahan.xlsx');
+        $filename='Laporan Ambil Bahan Kunjungan - '.$from.'-'.$to.'.xlsx';
+        return Excel::download(new AmbilBahanExport($from,$to),$filename);
+        // return (new AmbilBahanExport($from,$to))->download('ambil_bahan.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
     }
 
     // public function laporan(Request $request,AmbilBahanExport $sheet)

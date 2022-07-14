@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Instansi;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\InstansiExport;
 
 class InstansiController extends Controller
 {
@@ -22,5 +24,13 @@ class InstansiController extends Controller
             ->whereDate('created_at', '>=', $from)
             ->whereDate('created_at', '<=', $to)
         )->toJson();
+    }
+
+    public function laporan(Request $request)
+    {
+        $from=$request->input('from')?$request->input('from'):date('Y-m-d');
+        $to=$request->input('to')?$request->input('to'):date('Y-m-d');
+        $filename='Laporan Instansi - '.$from.'-'.$to.'.xlsx';
+        return Excel::download(new InstansiExport($from,$to),$filename);
     }
 }

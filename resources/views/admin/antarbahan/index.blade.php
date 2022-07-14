@@ -32,6 +32,8 @@
 		    	<button title="Cari" class="btn btn-primary btn-sm" onclick="get_list_data()"><i class="fa fa-search" style="font-size: 14px;"></i></button>
 		    	&nbsp;
 		    	<button title="Refresh" class="btn btn-primary btn-border btn-sm" onclick="get_list_data()"><i class="fa fa-history" style="font-size: 14px;"></i></button>
+		    	&nbsp;
+		    	<a id="cetak-laporan" href="javascript:void(0)" target="_blank" title="Cetak Laporan" class="btn btn-success btn-sm"><i class="fa fa-print" style="font-size: 14px;"></i></a>
 		    </div>
 		</div>
 		<hr/>
@@ -164,8 +166,8 @@ function convert_date(tgl) {
 
 function get_list_data(){
 	var tgl_dr = $('#tgl-dari').val()
-	console.log(tgl_dr)
     table.ajax.url('{{url('antarbahan/all')}}?tgl-dari='+$('#tgl-dari').val()+'&tgl-sampai='+$('#tgl-sampai').val()).load();
+    $('#cetak-laporan').attr('href','/antarbahan/laporan?from='+$('#tgl-dari').val()+'&to='+$('#tgl-sampai').val())
     //table.ajax.reload(null,false);
 }
 
