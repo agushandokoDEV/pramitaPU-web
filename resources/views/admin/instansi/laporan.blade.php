@@ -34,8 +34,8 @@
 	            <td>{{ $item->user->namalengkap }}</td>
 	            {{-- <td>{{ $item->jenis_keg }}</td> --}}
 	            <td>
-	            	@foreach (json_decode($item->jenis_keg) as $keg)
-					     <p>- {{ $keg->keg }}</p>
+	            	@foreach ($item->jenis_keg as $keg)
+					     <p>- {{ $keg['keg'] }}</p>
 					@endforeach
 	            </td>
 	            <td>{{ $item->tujuan }}</td>

@@ -98,7 +98,23 @@ $(document).ready(function(){
 	                return row?.user?.namalengkap
 	            }
 	        },
-	        {data: "jenis_keg"},
+	        // {data: "jenis_keg"},
+	        {
+	        	data: "user_id",
+	        	searchable:false,
+	            render: function (data, type, row, meta) {
+	            	// var keg=JSON.decode('{'+row?.jenis_keg+'}');
+	            	var str=''
+	            	console.log(row?.jenis_keg)
+	            	if(row.jenis_keg.length > 0){
+	            		row.jenis_keg.forEach(item =>{
+	            			str +='- '+item.keg+' <br/>'
+	            		})
+	            	}
+	            	
+	                return str
+	            }
+	        },
 	        {data: "tujuan"},
 	        {data: "ket"},
 	        

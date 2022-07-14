@@ -17,4 +17,9 @@ class Instansi extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function getJenisKegAttribute($value)
+{
+    return json_decode($value, true);
+}
 }
