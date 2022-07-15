@@ -106,7 +106,7 @@ $(document).ready(function(){
 	            	// var keg=JSON.decode('{'+row?.jenis_keg+'}');
 	            	var str=''
 	            	// console.log(row?.jenis_keg)
-	            	if(row.jenis_keg.length > 0){
+	            	if(row.jenis_keg != null && row.jenis_keg.length > 0){
 	            		row.jenis_keg.forEach(item =>{
 	            			str +='- '+item.keg+' <br/>'
 	            		})

@@ -32,9 +32,11 @@
 	            <td>{{ $item->user->namalengkap }}</td>
 	            {{-- <td>{{ $item->jenis_keg }}</td> --}}
 	            <td>
-	            	@foreach ($item->jenis_keg as $keg)
-					     <p>- {{ $keg['keg'] }}</p>
-					@endforeach
+	            	@if($item->uraianterpilih != null && count($item->uraianterpilih) > 0)
+		            	@foreach ($item->jenis_keg as $keg)
+						     <p>- {{ $keg['keg'] }}</p>
+						@endforeach
+					@endif
 	            </td>
 	            <td>{{ $item->tujuan }}</td>
 	            <td>{{ $item->ket }}</td>

@@ -32,7 +32,7 @@
 	            <td>{{ date('Y-m-d H:i:s', strtotime($item->created_at)) }}</td>
 	            <td>{{ $item->user->namalengkap }}</td>
 	            <td>
-	            	@if(count($item->uraianterpilih) > 0)
+	            	@if($item->uraianterpilih != null && count($item->uraianterpilih) > 0)
 	            		@foreach ($item->uraianterpilih as $row)
 					    	<p>- {{ $row['jenis']['nama'] }}</p>
 						@endforeach
