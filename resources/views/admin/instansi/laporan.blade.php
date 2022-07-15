@@ -32,7 +32,7 @@
 	            <td>{{ $item->user->namalengkap }}</td>
 	            {{-- <td>{{ $item->jenis_keg }}</td> --}}
 	            <td>
-	            	@if($item->uraianterpilih != null && count($item->uraianterpilih) > 0)
+	            	@if($item->jenis_keg != null && count($item->jenis_keg) > 0)
 		            	@foreach ($item->jenis_keg as $keg)
 						     <p>- {{ $keg['keg'] }}</p>
 						@endforeach
