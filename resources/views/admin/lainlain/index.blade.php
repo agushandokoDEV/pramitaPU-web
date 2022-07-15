@@ -1,5 +1,5 @@
 @extends('layouts.base')
-@section('title', 'Instansi')
+@section('title', 'Lain-lain')
 @section('assets')
 <link rel="stylesheet" type="text/css" href="/assets/js/plugin/datatables-1.12.1/src/css/dataTables.bootstrap.min.css">
 
@@ -9,7 +9,7 @@
 @section('content')
 <div class="card">
 	<div class="card-header">
-		<h4 class="card-title">Instansi</h4>
+		<h4 class="card-title">Lain-lain</h4>
 	</div>
 	<div class="card-body">
 		<div class="d-flex gap-4 justify-content-around bd-highlight">
@@ -74,7 +74,7 @@ $(document).ready(function(){
 	    "serverSide": true, //Feature control DataTables' server-side processing mode.
 	    // Load data for the table's content from an Ajax source
 	    "ajax": {
-	        "url": "{{url('instansi/all')}}",
+	        "url": "{{url('lain-lain/all')}}",
 	        "type": "GET"
 	    },
 	    columns: [
@@ -98,23 +98,7 @@ $(document).ready(function(){
 	                return row?.user?.namalengkap
 	            }
 	        },
-	        // {data: "jenis_keg"},
-	        {
-	        	data: "user_id",
-	        	searchable:false,
-	            render: function (data, type, row, meta) {
-	            	// var keg=JSON.decode('{'+row?.jenis_keg+'}');
-	            	var str=''
-	            	// console.log(row?.jenis_keg)
-	            	if(row.jenis_keg.length > 0){
-	            		row.jenis_keg.forEach(item =>{
-	            			str +='- '+item.keg+' <br/>'
-	            		})
-	            	}
-	            	
-	                return str
-	            }
-	        },
+	        {data: "jenis_keg"},
 	        {data: "tujuan"},
 	        {data: "ket"},
 	        
@@ -177,8 +161,8 @@ function convert_date(tgl) {
 
 function get_list_data(){
 	var tgl_dr = $('#tgl-dari').val()
-    table.ajax.url('{{url('instansi/all')}}?tgl-dari='+$('#tgl-dari').val()+'&tgl-sampai='+$('#tgl-sampai').val()).load();
-    $('#cetak-laporan').attr('href','/instansi/laporan?from='+$('#tgl-dari').val()+'&to='+$('#tgl-sampai').val())
+    table.ajax.url('{{url('lain-lain/all')}}?tgl-dari='+$('#tgl-dari').val()+'&tgl-sampai='+$('#tgl-sampai').val()).load();
+    $('#cetak-laporan').attr('href','/lain-lain/laporan?from='+$('#tgl-dari').val()+'&to='+$('#tgl-sampai').val())
     //table.ajax.reload(null,false);
 }
 

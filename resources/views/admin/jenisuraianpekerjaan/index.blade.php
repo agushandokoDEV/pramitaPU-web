@@ -17,7 +17,7 @@
 			<table id="basic-datatables" class="display table table-bordered table-striped table-hover" style="width: 100%;">
 				<thead>
 					<tr>
-						<th>No</th>
+						<th style="width:3%">No</th>
 						<th>Uraian Pekerjaa</th>
 					</tr>
 				</thead>

@@ -446,8 +446,8 @@
                             </a>
                         </li>
                         <li class="nav-item active">
-                            <a href="{{route('pengantarandokter.index') }}">
-                                <i class="fas fa-book-reader"></i>
+                            <a href="{{route('lainlain.index') }}">
+                                <i class="fas fa-clipboard-list"></i>
                                 <p>Lain-lain</p>
                                 {{-- <span class="badge badge-success">4</span> --}}
                             </a>

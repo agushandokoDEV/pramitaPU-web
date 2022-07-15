@@ -19,7 +19,7 @@ class Instansi extends Model
     }
 
     public function getJenisKegAttribute($value)
-{
-    return json_decode($value, true);
-}
+    {
+        return json_decode($value, true);
+    }
 }

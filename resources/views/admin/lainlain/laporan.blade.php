@@ -1,6 +1,6 @@
 <table>
 	<thead>
-		<th style="font-size: 20px;" height="30" colspan="5" align="center"><b>LAPORAN INTANSI</b></th>
+		<th style="font-size: 20px;" height="30" colspan="5" align="center"><b>LAPORAN LAIN - LAIN</b></th>
 	</thead>
 </table>
 
@@ -30,12 +30,7 @@
 	        <tr>
 	            <td>{{ date('Y-m-d H:i:s', strtotime($item->created_at)) }}</td>
 	            <td>{{ $item->user->namalengkap }}</td>
-	            {{-- <td>{{ $item->jenis_keg }}</td> --}}
-	            <td>
-	            	@foreach ($item->jenis_keg as $keg)
-					     <p>- {{ $keg['keg'] }}</p>
-					@endforeach
-	            </td>
+	            <td>{{ $item->jenis_keg }}</td>
 	            <td>{{ $item->tujuan }}</td>
 	            <td>{{ $item->ket }}</td>
 	        </tr>

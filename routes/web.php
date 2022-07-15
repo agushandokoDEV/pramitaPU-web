@@ -14,6 +14,7 @@ use App\Http\Controllers\InstansiController;
 use App\Http\Controllers\PengantaranDokterController;
 use App\Http\Controllers\DokterController;
 use App\Http\Controllers\JenisUraianPekerjaanController;
+use App\Http\Controllers\LainlainController;
 
 /*
 |--------------------------------------------------------------------------
@@ -76,6 +77,11 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/instansi/all',[InstansiController::class,'all'])->name('instansi.all');
     Route::get('/instansi/laporan',[InstansiController::class,'laporan'])->name('instansi.laporan');
     
-    Route::get('/lain-lain',[PengantaranDokterController::class,'index'])->name('pengantarandokter.index');
-    Route::get('/lain-lain/all',[PengantaranDokterController::class,'all'])->name('pengantarandokter.all');
+    Route::get('/bacaan-dokter',[PengantaranDokterController::class,'index'])->name('pengantarandokter.index');
+    Route::get('/bacaan-dokter/all',[PengantaranDokterController::class,'all'])->name('pengantarandokter.all');
+    Route::get('/bacaan-dokter/laporan',[PengantaranDokterController::class,'laporan'])->name('pengantarandokter.laporan');
+
+    Route::get('/lain-lain',[LainlainController::class,'index'])->name('lainlain.index');
+    Route::get('/lain-lain/all',[LainlainController::class,'all'])->name('lainlain.all');
+    Route::get('/lain-lain/laporan',[LainlainController::class,'laporan'])->name('lainlain.laporan');
 });

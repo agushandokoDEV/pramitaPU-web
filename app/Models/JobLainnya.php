@@ -13,4 +13,9 @@ class JobLainnya extends Model
     protected $keyType = 'string';
     public $timestamps = false;
     protected $fillable = ['id','user_id','jenis_keg','tujuan','ket','created_at'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

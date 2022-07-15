@@ -1,5 +1,5 @@
 @extends('layouts.base')
-@section('title', 'Lain-lain')
+@section('title', 'Bacaan Dokter')
 @section('assets')
 <link rel="stylesheet" type="text/css" href="/assets/js/plugin/datatables-1.12.1/src/css/dataTables.bootstrap.min.css">
 
@@ -9,7 +9,7 @@
 @section('content')
 <div class="card">
 	<div class="card-header">
-		<h4 class="card-title">Lain-lain</h4>
+		<h4 class="card-title">Bacaan Dokter</h4>
 	</div>
 	<div class="card-body">
 		<div class="d-flex gap-4 justify-content-around bd-highlight">
@@ -31,6 +31,8 @@
 		    	<button title="Cari" class="btn btn-primary btn-sm" onclick="get_list_data()"><i class="fa fa-search" style="font-size: 14px;"></i></button>
 		    	&nbsp;
 		    	<button title="Refresh" class="btn btn-primary btn-border btn-sm" onclick="get_list_data()"><i class="fa fa-history" style="font-size: 14px;"></i></button>
+		    	&nbsp;
+		    	<a id="cetak-laporan" href="javascript:void(0)" target="_blank" title="Cetak Laporan" class="btn btn-success btn-sm"><i class="fa fa-print" style="font-size: 14px;"></i></a>
 		    </div>
 		</div>
 		<hr/>
@@ -38,7 +40,7 @@
 			<table id="basic-datatables" class="display table table-bordered table-striped table-hover" style="width: 100%;">
 				<thead>
 					<tr>
-						<th>No</th>
+						<th style="width:3%">No</th>
 						<th>Tanggal</th>
 						<th>Nama Petugas</th>
 						<th>Kegiatan</th>
@@ -72,7 +74,7 @@ $(document).ready(function(){
 	    "serverSide": true, //Feature control DataTables' server-side processing mode.
 	    // Load data for the table's content from an Ajax source
 	    "ajax": {
-	        "url": "{{url('lain-lain/all')}}",
+	        "url": "{{url('bacaan-dokter/all')}}",
 	        "type": "GET"
 	    },
 	    columns: [
@@ -96,8 +98,30 @@ $(document).ready(function(){
 	                return row?.user?.namalengkap
 	            }
 	        },
-	        {data: "jenis_keg"},
-	        {data: "tujuan"},
+	        {
+	        	data: "jenis_keg",
+	        	searchable:false,
+	            render: function (data, type, row, meta) {
+	            	var str=''
+	            	if(row.uraianterpilih.length > 0){
+	            		row.uraianterpilih.forEach(item =>{
+	            			str +='- '+item.jenis?.nama+' <br/>'
+	            		})
+	            	}
+	            	
+	            	
+	            	
+	                return str
+	            }
+	        },
+	        // {data: "tujuan"},
+	        {
+	        	data: "tujuan",
+	        	searchable:false,
+	            render: function (data, type, row, meta) {
+	                return row.dokter?.nama
+	            }
+	        },
 	        {data: "ket"},
 	        
 	    ],
@@ -159,7 +183,8 @@ function convert_date(tgl) {
 
 function get_list_data(){
 	var tgl_dr = $('#tgl-dari').val()
-    table.ajax.url('{{url('lain-lain/all')}}?tgl-dari='+$('#tgl-dari').val()+'&tgl-sampai='+$('#tgl-sampai').val()).load();
+    table.ajax.url('{{url('bacaan-dokter/all')}}?tgl-dari='+$('#tgl-dari').val()+'&tgl-sampai='+$('#tgl-sampai').val()).load();
+    $('#cetak-laporan').attr('href','/bacaan-dokter/laporan?from='+$('#tgl-dari').val()+'&to='+$('#tgl-sampai').val())
     //table.ajax.reload(null,false);
 }
 
