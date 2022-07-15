@@ -365,6 +365,8 @@
                                 {{-- <span class="badge badge-success">4</span> --}}
                             </a>
                         </li>
+
+                        @if(auth()->user()->role_id == '58e6f1e2-d875-4d73-b8d4-67e997214194' || auth()->user()->role_id == 'b7676194-c047-4ea5-a4c5-0f6fa8f7ced8')
                         <li class="nav-item active submenu">
                             <a data-toggle="collapse" href="#usergroup">
                                 <i class="fas fa-users"></i>
@@ -417,6 +419,10 @@
                                 </ul>
                             </div>
                         </li>
+
+                        @endif
+
+                        @if(auth()->user()->role_id == '4359ce17-91ca-4178-98de-7699e0c5ba53' || auth()->user()->role_id == '58e6f1e2-d875-4d73-b8d4-67e997214194' || auth()->user()->role_id == 'b7676194-c047-4ea5-a4c5-0f6fa8f7ced8')
                         <li class="nav-item active">
                             <a href="{{route('ambilbahan.index') }}">
                                 <i class="fas fa-exchange-alt"></i>
@@ -452,6 +458,7 @@
                                 {{-- <span class="badge badge-success">4</span> --}}
                             </a>
                         </li>
+                        @endif
                         {{-- <li class="nav-item">
                             <a href="../widgets.html">
                                 <i class="fas fa-desktop"></i>
