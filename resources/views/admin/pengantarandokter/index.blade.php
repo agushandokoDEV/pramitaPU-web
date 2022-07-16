@@ -81,36 +81,32 @@ $(document).ready(function(){
 	        {
 	            searchable: false,
 	            render: function (data, type, row, meta) {
-	                return meta.row + meta.settings._iDisplayStart + 1;
+	                return '<small class="h6">'+ parseInt(meta.row + meta.settings._iDisplayStart + 1) +'</small>'
 	            }
 	        },
 	        {
 	        	data: "created_at",
-	        	searchable:false,
 	            render: function (data, type, row, meta) {
-	                return moment(row.created_at).locale('id').format('LLL');
+	                return '<span class="badge badge-dark">'+moment(row.created_at).locale('id').format('LLL')+'</span>'
 	            }
 	        },
 	        {
 	        	data: "user_id",
 	        	searchable:false,
 	            render: function (data, type, row, meta) {
-	                return row?.user?.namalengkap
+	                return '<small class="h6">'+row?.user?.namalengkap+'</small>'
 	            }
 	        },
 	        {
 	        	data: "jenis_keg",
-	        	searchable:false,
+	        	// searchable:false,
 	            render: function (data, type, row, meta) {
 	            	var str=''
 	            	if(row.uraianterpilih.length > 0){
 	            		row.uraianterpilih.forEach(item =>{
-	            			str +='- '+item.jenis?.nama+' <br/>'
+	            			str +='<small class="h6">- '+item.jenis?.nama+'</small><br/>'
 	            		})
 	            	}
-	            	
-	            	
-	            	
 	                return str
 	            }
 	        },
@@ -119,10 +115,18 @@ $(document).ready(function(){
 	        	data: "tujuan",
 	        	searchable:false,
 	            render: function (data, type, row, meta) {
-	                return row.dokter?.nama
+	                // return row.dokter?.nama
+	                return '<small class="h6">'+ row?.dokter?.nama +'</small>'
 	            }
 	        },
-	        {data: "ket"},
+	        // {data: "ket"},
+	        {
+	        	data: "ket",
+	            render: function (data, type, row, meta) {
+	                // return row.dokter?.nama
+	                return '<small class="h6">'+ row.ket +'</small>'
+	            }
+	        },
 	        
 	    ],
 	    "language": {

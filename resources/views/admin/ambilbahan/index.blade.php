@@ -157,39 +157,72 @@ $(document).ready(function(){
 	        {
 	            searchable: false,
 	            render: function (data, type, row, meta) {
-	                return meta.row + meta.settings._iDisplayStart + 1;
+	                // return meta.row + meta.settings._iDisplayStart + 1;
+	                // return '<span class="text-xl">'+ parseInt(meta.row + meta.settings._iDisplayStart + 1) +'</span>'
+	                return '<small class="h6">'+ parseInt(meta.row + meta.settings._iDisplayStart + 1) +'</small>'
 	            }
 	        },
 	        {
 	        	data: "created_at",
 	        	searchable:false,
 	            render: function (data, type, row, meta) {
-	                return moment(row.created_at).locale('id').format('LLL');
+	                // return moment(row.created_at).locale('id').format('LLL');
+	                return '<span class="badge badge-dark">'+moment(row.created_at).locale('id').format('LLL')+'</span>'
 	            }
 	        },
 	        {
 	        	data: "user_id",
 	        	searchable:false,
 	            render: function (data, type, row, meta) {
-	                return row?.user?.namalengkap
+	                // return row?.user?.namalengkap
+	                return '<small class="h6">'+row?.user?.namalengkap+'</small>'
 	            }
 	        },
 	        {
 	        	data: "lab_id",
 	        	searchable:false,
 	            render: function (data, type, row, meta) {
-	                return row?.lab?.nama
+	                // return row?.lab?.nama
+	                return '<small class="h6">'+ row?.lab?.nama +'</small>'
 	            }
 	        },
-	        {data: "nama_pasien"},
-	        {data: "yg_menyerahkan"},
-	        {data: "yg_menerima"},
+	        // {data: "nama_pasien"},
+	        {
+	        	data: "nama_pasien",
+	            render: function (data, type, row, meta) {
+	                if(row.yg_menerima != null){
+	            			return '<small class="h6">'+row.nama_pasien+'</small>'
+	            		}
+	                return ''
+	            }
+	        },
+	        // {data: "yg_menyerahkan"},
+	        {
+	        	data: "yg_menyerahkan",
+	            render: function (data, type, row, meta) {
+	            		if(row.yg_menerima != null){
+	            			return '<small class="h6">'+row.yg_menyerahkan+'</small>'
+	            		}
+	                return ''
+	            }
+	        },
+	        // {data: "yg_menerima"},
+	        {
+	        	data: "yg_menerima",
+	            render: function (data, type, row, meta) {
+	            		if(row.yg_menerima != null){
+	            			return '<small class="h6">'+row.yg_menerima+'</small>'
+	            		}
+	                return ''
+	            }
+	        },
 	        {
 	        	data: "approved_at",
 	        	searchable:false,
 	            render: function (data, type, row, meta) {
 	            	if(row.approved_at != null){
-	            		return moment(row.approved_at).locale('id').format('LT');
+	            		// return moment(row.approved_at).locale('id').format('LT');
+	            		return '<span title="'+moment(row.approved_at).locale('id').format('LLL')+'" class="badge badge-info">'+moment(row.approved_at).locale('id').format('LT')+'</span>'
 	            	}
 	                return '-'
 	            }
@@ -204,9 +237,9 @@ $(document).ready(function(){
                var str='';
 
                if(row.approved_at === null){
-               		str += ' <button onclick="get_detail('+"'"+row.id+"'"+')" title="Terima Bahan?" class="btn btn-sm btn-warning"><i class="fa fa-clipboard-list" style="font-size:20px"></i></button>';
+               		str += ' <button onclick="get_detail('+"'"+row.id+"'"+')" title="Terima Bahan?" class="btn btn-xs btn-warning"><i class="fa fa-clipboard-list" style="font-size:20px"></i></button>';
                }else{
-               		str += ' <button onclick="get_detail('+"'"+row.id+"'"+')" title="Sudah diterima" class="btn btn-sm btn-info"><i class="fa fa-clipboard-list" style="font-size:20px"></i></button>';
+               		str += ' <button onclick="get_detail('+"'"+row.id+"'"+')" title="Sudah diterima" class="btn btn-xs btn-info"><i class="fa fa-clipboard-list" style="font-size:20px"></i></button>';
                }
                
                return str;

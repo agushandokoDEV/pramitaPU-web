@@ -81,31 +81,40 @@ $(document).ready(function(){
 	        {
 	            searchable: false,
 	            render: function (data, type, row, meta) {
-	                return meta.row + meta.settings._iDisplayStart + 1;
+	                return '<small class="h6">'+ parseInt(meta.row + meta.settings._iDisplayStart + 1) +'</small>'
 	            }
 	        },
 	        {
 	        	data: "created_at",
 	        	searchable:false,
 	            render: function (data, type, row, meta) {
-	                return moment(row.created_at).locale('id').format('LLL');
+	                // return moment(row.created_at).locale('id').format('LLL');
+	                return '<span class="badge badge-dark">'+moment(row.created_at).locale('id').format('LLL')+'</span>'
 	            }
 	        },
 	        {
 	        	data: "user_id",
 	        	searchable:false,
 	            render: function (data, type, row, meta) {
-	                return row?.user?.namalengkap
+	                return '<small class="h6">'+row?.user?.namalengkap+'</small>'
 	            }
 	        },
 	        {
 	        	data: "lab_id",
-	        	searchable:false,
 	            render: function (data, type, row, meta) {
-	                return row?.lab?.nama
+	                return '<small class="h6">'+ row?.lab?.nama +'</small>'
 	            }
 	        },
-	        {data: "penerima"},
+	        // {data: "penerima"},
+	        {
+	        	data: "penerima",
+	            render: function (data, type, row, meta) {
+	                if(row.penerima != null){
+	            			return '<small class="h6">'+row.penerima+'</small>'
+	            		}
+	                return ''
+	            }
+	        },
 	        
 	    ],
 	    "language": {

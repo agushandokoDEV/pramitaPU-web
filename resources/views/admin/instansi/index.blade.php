@@ -81,21 +81,21 @@ $(document).ready(function(){
 	        {
 	            searchable: false,
 	            render: function (data, type, row, meta) {
-	                return meta.row + meta.settings._iDisplayStart + 1;
+	                return '<small class="h6">'+ parseInt(meta.row + meta.settings._iDisplayStart + 1) +'</small>'
 	            }
 	        },
 	        {
 	        	data: "created_at",
 	        	searchable:false,
 	            render: function (data, type, row, meta) {
-	                return moment(row.created_at).locale('id').format('LLL');
+	                return '<span class="badge badge-dark">'+moment(row.created_at).locale('id').format('LLL')+'</span>'
 	            }
 	        },
 	        {
 	        	data: "user_id",
 	        	searchable:false,
 	            render: function (data, type, row, meta) {
-	                return row?.user?.namalengkap
+	               return '<small class="h6">'+row?.user?.namalengkap+'</small>'
 	            }
 	        },
 	        // {data: "jenis_keg"},
@@ -108,15 +108,35 @@ $(document).ready(function(){
 	            	// console.log(row?.jenis_keg)
 	            	if(row.jenis_keg != null && row.jenis_keg.length > 0){
 	            		row.jenis_keg.forEach(item =>{
-	            			str +='- '+item.keg+' <br/>'
+	            			str +='<small class="h6"> - '+item.keg+'</small> <br/>'
 	            		})
 	            	}
 	            	
 	                return str
 	            }
 	        },
-	        {data: "tujuan"},
-	        {data: "ket"},
+	        // {data: "tujuan"},
+	        {
+	        	data: "tujuan",
+	        	searchable:false,
+	            render: function (data, type, row, meta) {
+	                if(row.tujuan != null){
+	            			return '<small class="h6">'+row.tujuan+'</small>'
+	            		}
+	                return ''
+	            }
+	        },
+	        // {data: "ket"},
+	        {
+	        	data: "ket",
+	        	searchable:false,
+	            render: function (data, type, row, meta) {
+	                if(row.ket != null){
+	            			return '<small class="h6">'+row.ket+'</small>'
+	            		}
+	                return ''
+	            }
+	        },
 	        
 	    ],
 	    "language": {

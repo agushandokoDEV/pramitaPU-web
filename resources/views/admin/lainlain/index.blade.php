@@ -81,26 +81,45 @@ $(document).ready(function(){
 	        {
 	            searchable: false,
 	            render: function (data, type, row, meta) {
-	                return meta.row + meta.settings._iDisplayStart + 1;
+	                return '<small class="h6">'+ parseInt(meta.row + meta.settings._iDisplayStart + 1) +'</small>'
 	            }
 	        },
 	        {
 	        	data: "created_at",
-	        	searchable:false,
 	            render: function (data, type, row, meta) {
-	                return moment(row.created_at).locale('id').format('LLL');
+	                return '<span class="badge badge-dark">'+moment(row.created_at).locale('id').format('LLL')+'</span>'
 	            }
 	        },
 	        {
 	        	data: "user_id",
-	        	searchable:false,
 	            render: function (data, type, row, meta) {
-	                return row?.user?.namalengkap
+	                return '<small class="h6">'+row?.user?.namalengkap+'</small>'
 	            }
 	        },
-	        {data: "jenis_keg"},
-	        {data: "tujuan"},
-	        {data: "ket"},
+	        // {data: "jenis_keg"},
+	        {
+	        	data: "jenis_keg",
+	            render: function (data, type, row, meta) {
+	                // return row.dokter?.nama
+	                return '<small class="h6">'+ row.jenis_keg +'</small>'
+	            }
+	        },
+	        // {data: "tujuan"},
+	        {
+	        	data: "tujuan",
+	            render: function (data, type, row, meta) {
+	                // return row.dokter?.nama
+	                return '<small class="h6">'+ row.tujuan +'</small>'
+	            }
+	        },
+	        // {data: "ket"},
+	        {
+	        	data: "ket",
+	            render: function (data, type, row, meta) {
+	                // return row.dokter?.nama
+	                return '<small class="h6">'+ row.ket +'</small>'
+	            }
+	        },
 	        
 	    ],
 	    "language": {
