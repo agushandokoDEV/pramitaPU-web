@@ -57,7 +57,7 @@
             <!-- Logo Header -->
             <div class="logo-header" data-background-color="red2">
 
-                <a href="/" class="logo">
+                <a href="#" class="logo">
                     <img src="/assets/img/logo.png" style="width:80%" alt="navbar brand" class="navbar-brand">
                 </a>
                 <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
