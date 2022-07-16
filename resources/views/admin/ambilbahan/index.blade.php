@@ -200,7 +200,7 @@ $(document).ready(function(){
 	        {
 	        	data: "yg_menyerahkan",
 	            render: function (data, type, row, meta) {
-	            		if(row.yg_menerima != null){
+	            		if(row.yg_menyerahkan != null){
 	            			return '<small class="h6">'+row.yg_menyerahkan+'</small>'
 	            		}
 	                return ''
