@@ -30,7 +30,7 @@ class PengantaranDokterController extends Controller
     {
         $from=$request->input('from')?$request->input('from'):date('Y-m-d');
         $to=$request->input('to')?$request->input('to'):date('Y-m-d');
-        $filename='Bacaan Dokter - '.$from.'-'.$to.'.xlsx';
+        $filename='Laporan Bacaan Dokter - '.$from.'-'.$to.'.xlsx';
         return Excel::download(new PengantaranDokterExport($from,$to),$filename);
     }
 }
