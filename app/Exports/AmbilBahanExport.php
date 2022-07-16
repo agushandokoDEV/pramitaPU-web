@@ -3,6 +3,7 @@
 namespace App\Exports;
 
 use App\Models\AmbilBahan;
+use App\Models\User;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithCustomStartCell;
@@ -29,12 +30,14 @@ class AmbilBahanExport implements FromView,WithCustomStartCell,ShouldAutoSize
 
     private $from=null;
     private $to=null;
+    private $user_id=null;
 
-    public function __construct(String $from, String $to)
+    public function __construct(String $from, String $to,String $user=null)
     {
         // dd($from);
         $this->from=$from;
         $this->to=$to;
+        $this->user_id=$user;
     }
     /**
     * @return \Illuminate\Support\Collection
@@ -84,15 +87,21 @@ class AmbilBahanExport implements FromView,WithCustomStartCell,ShouldAutoSize
 
     public function view(): View
     {
-        $data['list']=AmbilBahan::with(['user','lab','listtabung','listtabung.tabung'])
-        ->whereDate('created_at', '>=', $this->from)
-        ->whereDate('created_at', '<=', $this->to)
-        ->orderBy('created_at', 'DESC')
-        ->get();
+        $query=AmbilBahan::with(['user','lab','listtabung','listtabung.tabung'])
+            ->whereDate('created_at', '>=', $this->from)
+            ->whereDate('created_at', '<=', $this->to)
+            ->orderBy('created_at', 'DESC');
 
+        $user=null;
+        if($this->user_id != null){
+            $user=User::where('id',$this->user_id)->first();
+        }
+
+        $data['list']=$query->get();
         $data['filter']=(object) array(
             'from'=>Carbon::parse($this->from)->isoFormat('D MMMM Y'),
-            'to'=>Carbon::parse($this->to)->isoFormat('D MMMM Y')
+            'to'=>Carbon::parse($this->to)->isoFormat('D MMMM Y'),
+            'user'=>$user
         );
 
         // dd($data);

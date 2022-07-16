@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\AmbilBahan;
+use App\Models\User;
 use App\Models\TabungAmbilBahan;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
@@ -13,20 +14,30 @@ class AmbilbahanController extends Controller
 {
     public function index(Request $request)
     {
-        return view('admin.ambilbahan.index');
+        $user=User::where('role_id','edd4c20f-1545-4f31-8164-87515feedc0b')
+            ->orderBy('namalengkap', 'ASC')
+            ->get();
+
+        $data['user']=$user;
+        return view('admin.ambilbahan.index',$data);
     }
 
     public function all(Request $request)
     {
         $from=$request->input('tgl-dari')?$request->input('tgl-dari'):date('Y-m-d');
         $to=$request->input('tgl-sampai')?$request->input('tgl-sampai'):date('Y-m-d');
+        $user=$request->input('user_id');
 
-        return datatables()->eloquent(
-            AmbilBahan::with(['user','lab'])
+        $query=AmbilBahan::with(['user','lab'])
             // ->whereBetween('created_at', array($from, $to))
+            // ->where('user_id',)
             ->whereDate('created_at', '>=', $from)
-            ->whereDate('created_at', '<=', $to)
-        )->toJson();
+            ->whereDate('created_at', '<=', $to);
+        if(isset($user) && $user !=''){
+            $query->where('user_id',$user);
+        }
+
+        return datatables()->eloquent($query)->toJson();
     }
 
     public function byid(Request $request,$id)
@@ -55,8 +66,9 @@ class AmbilbahanController extends Controller
     {
         $from=$request->input('from')?$request->input('from'):date('Y-m-d');
         $to=$request->input('to')?$request->input('to'):date('Y-m-d');
+        $user=$request->input('user_id');
         $filename='Laporan Ambil Bahan Kunjungan - '.$from.'-'.$to.'.xlsx';
-        return Excel::download(new AmbilBahanExport($from,$to),$filename);
+        return Excel::download(new AmbilBahanExport($from,$to,$user),$filename);
         // return (new AmbilBahanExport($from,$to))->download('ambil_bahan.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
     }
 
