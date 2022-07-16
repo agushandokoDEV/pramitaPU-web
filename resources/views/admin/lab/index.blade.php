@@ -5,12 +5,23 @@
 
 <script src="/assets/js/plugin/datatables-1.12.1/src/js/jquery.dataTables.min.js"></script>
 <script src="/assets/js/plugin/datatables-1.12.1/src/js/dataTables.bootstrap4.min.js"></script>
+<script src="/assets/js/plugin/ajaxform/dist/jquery.form.min.js"></script>
 
 @endsection
 @section('content')
 <div class="card">
 	<div class="card-header">
-		<h4 class="card-title">Lab</h4>
+		<div class="d-flex justify-content-between bd-highlight">
+			<div><h4 class="card-title">Lab</h4></div>
+			<div>
+				<button onclick="addLab('Tambah Lab')" class="btn btn-danger btn-sm btn-border btn-round">
+					<span class="btn-label">
+						<i class="fa fa-plus"></i>
+					</span>
+					Tambah Lab
+				</button>
+			</div>
+		</div>
 	</div>
 	<div class="card-body">
 		<div class="table-responsive">
@@ -19,6 +30,7 @@
 					<tr>
 						<th style="width:3%">No</th>
 						<th>Nama Lab</th>
+						<th style="width:5%">Aksi</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -27,6 +39,36 @@
 			</table>
 		</div>
 	</div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" id="mdl-form-lab">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal-title">-</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="post" action="/lab/add" id="form-lab" autocomplete="off">
+        	@csrf
+        	<input type="hidden" name="id" id="inp-id"/>
+    		<div class="form-group">
+				  <label for="Inputnama">Nama Lab :</label>
+			    <input type="text" name="nama" class="form-control" id="inp-nama" placeholder="Masukan Nama Lab" required/>
+				</div>
+			<div class="form-group">
+			 	<div id="msg-form"></div>
+			</div>
+			<div class="form-group">
+			 	<button type="submit" id="btn-submit" class="btn btn-primary">Tambahkan Lab Baru</button>
+			 	<button type="button" class="btn btn-default" onclick="batal()">Tutup</button>
+			</div>
+		</form>
+      </div>
+    </div>
+  </div>
 </div>
 
 @section('script')
@@ -53,7 +95,17 @@
 		        },
 		        {data: "nama"},
 		    ],
-		    
+		    "columnDefs": [
+		    	{
+		            "targets": 2,
+		            "render": function(data, type, row, meta){
+
+		               	var str='';
+		               	str += ' <button onclick="get_detail('+"'"+row.id+"'"+')" title="Edit '+row.nama+'" class="btn btn-sm btn-info"><i class="fa fa-pencil-alt" style="font-size:15px"></i></button>';
+		               	return str;
+		            }
+		        },
+		    ],
 		    "language": {
 	            "lengthMenu": "_MENU_",
 	            // "processing": "<img src='/img/loading.gif' />"
@@ -95,9 +147,78 @@
 	  	$('.dt_actions').html($('.dt_index_actions').html());
 	  	$('#basic-datatables tbody').on('dblclick', 'tr', function () {
 			var data = table.row( this ).data();
-			console.log(data);
+			// console.log(data);
 		});
+
+		$('#form-lab').ajaxForm({
+	        beforeSend: function() {
+	        	$('#msg-form').html('')
+	        	$('#btn-submit')
+		          .attr('disabled','true')
+		          .text('Loading...');
+	        },
+	        success: function(res) {
+	        	var btn_text='Tambahkan Lab Baru';
+	        	if($('#inp-id').val() !=''){
+	        		btn_text='Edit Lab'
+	        	}
+	        	$('#btn-submit')
+	        	.removeAttr('disabled')
+	        	.text(btn_text);
+	        	
+	        	// var res=jQuery.parseJSON(response);
+	        	// console.log(res)
+	          if(res.success){
+	            $('#msg-form').html('<div class="alert alert-success">'+res.message+'</div>')
+	            if($('#inp-id').val() ===''){
+					 $('#form-lab')[0].reset();
+			  	}
+			  	table.ajax.url('/lab/all').load();
+	          }
+	        },
+	        error:function(err,res){
+	        	var btn_text='Tambahkan lab Baru';
+	        	if($('#inp-id').val() !=''){
+	        		btn_text='Edit lab'
+	        	}
+	        	$('#btn-submit')
+	        	.removeAttr('disabled')
+	        	.text(btn_text);
+	        	$('#msg-form').html('<div class="alert alert-danger">'+err.responseJSON.message+'</div>')
+	        }
+	    });
 	});
+
+	function addLab(str) {
+		$('#msg-form').html('')
+		$('#form-lab').attr('action','/lab/add')
+		$('#inp-id').val('')
+		$('#btn-submit').text('Tambahkan lab');
+		$('#mdl-form-lab').modal('show')
+		$('#modal-title').text(str)
+	}
+
+	function get_detail(id) {
+		$.get('/lab/row/'+id,function(res){
+			if(res.success){
+				$('#inp-id').val(res.data.id);
+				$('#inp-nama').val(res.data.nama);
+				$('#form-lab').attr('action','/lab/edit')
+				$('#btn-submit').text('Edit Lab');
+				$('#mdl-form-lab').modal('show')
+				$('#modal-title').text('Edit Lab')
+			}else{
+				alert(res.message)
+			}
+		});
+	}
+
+	function batal() {
+		$('#msg-form').html('')
+		$('#form-lab')[0].reset();
+		
+		$('#mdl-form-lab').modal('hide')
+	}
 </script>
 @endsection
 @endsection

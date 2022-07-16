@@ -147,7 +147,6 @@
 	  	$('.dt_actions').html($('.dt_index_actions').html());
 	  	$('#basic-datatables tbody').on('dblclick', 'tr', function () {
 			var data = table.row( this ).data();
-			console.log(data);
 		});
 
 

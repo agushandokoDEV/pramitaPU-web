@@ -11,4 +11,6 @@ class Tabung extends Model
 
     protected $table='tabung';
     protected $keyType = 'string';
+    public $timestamps = false;
+    protected $fillable = ['nama','createdAt'];
 }

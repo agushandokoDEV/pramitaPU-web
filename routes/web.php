@@ -49,9 +49,15 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::get('/tabung',[TabungController::class,'index'])->name('tabung.index');
     Route::get('/tabung/all',[TabungController::class,'all'])->name('tabung.all');
-    
+    Route::post('/tabung/add',[TabungController::class,'add'])->name('tabung.add');
+    Route::get('/tabung/row/{id}',[TabungController::class,'findByid'])->name('tabung.findByid');
+    Route::post('/tabung/edit',[TabungController::class,'update'])->name('tabung.update');
+
     Route::get('/lab',[LabController::class,'index'])->name('lab.index');
     Route::get('/lab/all',[LabController::class,'all'])->name('lab.all');
+    Route::post('/lab/add',[LabController::class,'add'])->name('lab.add');
+    Route::get('/lab/row/{id}',[LabController::class,'findByid'])->name('lab.findByid');
+    Route::post('/lab/edit',[LabController::class,'update'])->name('lab.update');
 
     Route::get('/dokter',[DokterController::class,'index'])->name('dokter.index');
     Route::get('/dokter/all',[DokterController::class,'all'])->name('dokter.all');
@@ -61,6 +67,9 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::get('/jenisuraianpekerjaan',[JenisUraianPekerjaanController::class,'index'])->name('jenisuraianpekerjaan.index');
     Route::get('/jenisuraianpekerjaan/all',[JenisUraianPekerjaanController::class,'all'])->name('jenisuraianpekerjaan.all');
+    Route::post('/jenisuraianpekerjaan/add',[JenisUraianPekerjaanController::class,'add'])->name('jenisuraianpekerjaan.add');
+    Route::get('/jenisuraianpekerjaan/row/{id}',[JenisUraianPekerjaanController::class,'findByid'])->name('jenisuraianpekerjaan.findByid');
+    Route::post('/jenisuraianpekerjaan/edit',[JenisUraianPekerjaanController::class,'update'])->name('jenisuraianpekerjaan.update');
 
     Route::get('/ambilbahan',[AmbilbahanController::class,'index'])->name('ambilbahan.index');
     Route::get('/ambilbahan/all',[AmbilbahanController::class,'all'])->name('ambilbahan.all');

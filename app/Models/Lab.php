@@ -10,4 +10,6 @@ class Lab extends Model
     use HasFactory;
     protected $table='lab';
     protected $keyType = 'string';
+    public $timestamps = false;
+    protected $fillable = ['nama','createdAt'];
 }
