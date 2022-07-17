@@ -11,7 +11,7 @@ class Instansi extends Model
     protected $table='instansi';
     protected $keyType = 'string';
     public $timestamps = false;
-    protected $fillable = ['user_id','jenis_keg','tujuan','ket','created_at'];
+    protected $fillable = ['user_id','jenis_keg','tujuan','ket','created_at','updated_at'];
 
     public function user()
     {

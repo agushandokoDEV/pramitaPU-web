@@ -12,7 +12,7 @@ class AntarBahan extends Model
     protected $table='antar_bahan';
     protected $keyType = 'string';
     public $timestamps = false;
-    protected $fillable = ['user_id','lab_id','penerima','created_at'];
+    protected $fillable = ['user_id','lab_id','penerima','created_at','updated_at'];
 
     public function user()
     {

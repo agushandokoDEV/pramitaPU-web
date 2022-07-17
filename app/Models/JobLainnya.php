@@ -12,7 +12,7 @@ class JobLainnya extends Model
     protected $table='job_lainnya';
     protected $keyType = 'string';
     public $timestamps = false;
-    protected $fillable = ['id','user_id','jenis_keg','tujuan','ket','created_at'];
+    protected $fillable = ['id','user_id','jenis_keg','tujuan','ket','created_at','updated_at'];
 
     public function user()
     {

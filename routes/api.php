@@ -40,9 +40,13 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
     Route::get('/dokter',[PengantaranDokterController::class,'list'])->name('dokter.list');
     Route::post('/ambil-bahan',[AmbilBahanController::class,'Add'])->name('ambilbahan.add');
     Route::post('/antar-bahan',[AntarBahanController::class,'Add'])->name('antarbahan.add');
+    Route::put('/antar-bahan',[AntarBahanController::class,'updStatus'])->name('antarbahan.updStatus');
     Route::post('/instansi',[InstansiController::class,'Add'])->name('instansi.add');
+    Route::put('/instansi',[InstansiController::class,'updStatus'])->name('instansi.updStatus');
     Route::post('/pengantarandokter',[PengantaranDokterController::class,'Add'])->name('pengantarandokter.add');
+    Route::put('/pengantarandokter',[PengantaranDokterController::class,'updStatus'])->name('pengantarandokter.updStatus');
     Route::post('/lainnya',[JobLainnyaController::class,'Add'])->name('lainnya.add');
+    Route::put('/lainnya',[JobLainnyaController::class,'updStatus'])->name('lainnya.updStatus');
     Route::get('/kegiatan',[KegiatanController::class,'bydate'])->name('kegiatan.bydate');
     Route::get('/riwayat-kegiatan',[KegiatanController::class,'riwayat'])->name('kegiatan.riwayat');
     Route::get('/kegiatan/{id}',[KegiatanController::class,'byid'])->name('kegiatan.byid');

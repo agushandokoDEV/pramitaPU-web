@@ -68,4 +68,30 @@ class PengantaranDokterController extends Controller
             ],400);
         }
     }
+
+    public function updStatus(Request $request)
+    {
+        $id=$request->id;
+        $row=PengantaranDokter::where('id',$id)->where('user_id',Auth::user()->id);
+        if($row->first())
+        {
+            $row=PengantaranDokter::where('id',$id)
+                ->where('user_id',Auth::user()->id)
+                ->update([
+                    'ket'=>$request->ket,
+                    'updated_at'=>date('Y-m-d H:i:d')
+                ]);
+
+            return response()->json([
+                'success'=>true,
+                'data'=>$row,
+                'message'=>'Status berhasil diubah'
+            ],200);
+        }
+
+        return response()->json([
+            'success'=>false,
+            'message'=>'Data tidak tersedia'
+        ],400);
+    }
 }

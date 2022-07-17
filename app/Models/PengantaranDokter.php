@@ -12,7 +12,7 @@ class PengantaranDokter extends Model
     protected $table='pengantaran_dokter';
     protected $keyType = 'string';
     public $timestamps = false;
-    protected $fillable = ['user_id','ket','tujuan','dokter_id','created_at'];
+    protected $fillable = ['user_id','ket','tujuan','dokter_id','created_at','updated_at'];
 
     public function user()
     {
