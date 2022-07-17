@@ -27,6 +27,18 @@
 		      	<input type="date" class="form-control form-control-sm" placeholder="Tanggal" id="tgl-sampai" />
 		    </div>
 		    &nbsp;
+	      	<div class="input-group">
+	      		<div class="input-group-prepend">
+		      		<span class="input-group-text"><i class="fa fa-user"></i></span>
+		      	</div>
+		      	<select class="form-control form-control-sm" id="user_id">
+					<option value="">Pilih PU</option>
+					@foreach($user as $item)
+					<option value="{{$item->id}}">{{$item->namalengkap}}</option>
+					@endforeach
+				</select>
+	    	</div>
+		    &nbsp;
 		    <div class="input-group">
 		    	<button title="Cari" class="btn btn-primary btn-sm" onclick="get_list_data()"><i class="fa fa-search" style="font-size: 14px;"></i></button>
 		    	&nbsp;
@@ -197,8 +209,8 @@ function convert_date(tgl) {
 
 function get_list_data(){
 	var tgl_dr = $('#tgl-dari').val()
-    table.ajax.url('{{url('instansi/all')}}?tgl-dari='+$('#tgl-dari').val()+'&tgl-sampai='+$('#tgl-sampai').val()).load();
-    $('#cetak-laporan').attr('href','/instansi/laporan?from='+$('#tgl-dari').val()+'&to='+$('#tgl-sampai').val())
+    table.ajax.url('{{url('instansi/all')}}?user_id='+$('#user_id').val()+'&tgl-dari='+$('#tgl-dari').val()+'&tgl-sampai='+$('#tgl-sampai').val()).load();
+    $('#cetak-laporan').attr('href','/instansi/laporan?user_id='+$('#user_id').val()+'&from='+$('#tgl-dari').val()+'&to='+$('#tgl-sampai').val())
     //table.ajax.reload(null,false);
 }
 

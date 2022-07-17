@@ -95,6 +95,7 @@ class AmbilBahanExport implements FromView,WithCustomStartCell,ShouldAutoSize
         $user=null;
         if($this->user_id != null){
             $user=User::where('id',$this->user_id)->first();
+            $query->where('user_id',$this->user_id);
         }
 
         $data['list']=$query->get();
@@ -103,8 +104,6 @@ class AmbilBahanExport implements FromView,WithCustomStartCell,ShouldAutoSize
             'to'=>Carbon::parse($this->to)->isoFormat('D MMMM Y'),
             'user'=>$user
         );
-
-        // dd($data);
 
         return view('admin.ambilbahan.laporan', ['data' => (object)$data]);
     }

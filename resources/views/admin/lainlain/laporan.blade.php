@@ -9,6 +9,13 @@
 		<th style="font-size: 14px;" height="20" colspan="5" align="center">Tanggal {{$data->filter->from}} - {{$data->filter->to}}</th>
 	</thead>
 </table>
+@if($data->filter->user != null)
+<table>
+	<thead>
+		<th style="font-size: 16px;" height="20" colspan="5" align="center">{{$data->filter->user->namalengkap}}</th>
+	</thead>
+</table>
+@endif
 <table>
 	<thead>
 		<th colspan="5">&nbsp;</th>
