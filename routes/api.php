@@ -12,6 +12,7 @@ use App\Http\Controllers\API\InstansiController;
 use App\Http\Controllers\API\PengantaranDokterController;
 use App\Http\Controllers\API\JobLainnyaController;
 use App\Http\Controllers\API\JenisUraianPekerjaanController;
+use App\Http\Controllers\API\DemoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,10 @@ use App\Http\Controllers\API\JenisUraianPekerjaanController;
 
 Route::post('/authenticate',[AuthController::class,'authenticate'])->name('authenticate');
 Route::post('/authenticate/register',[AuthController::class,'register'])->name('register');
+
+// DEMO API
+Route::get('/demo/roles',[DemoController::class,'roles'])->name('demo.roles');
+Route::get('/demo/users',[DemoController::class,'users'])->name('demo.users');
 
 Route::group(['middleware' => 'auth:sanctum'], function() {
     Route::get('/account',[AuthController::class,'account'])->name('account');
